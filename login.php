@@ -12,9 +12,9 @@
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <a class="navbar-brand" href="index.php">購物網站</a>
-            <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
-            </button> -->
+            </button>
           
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav ml-auto">
@@ -51,16 +51,20 @@
             <div class="col-8" style="background-color: lightskyblue; height: 500px;"></div>
             <div class="col-4">
                 <form>
-                    <div class="form-group">
-                        <label for="userName">帳號</label>
-                        <input class="form-control" type="text" name="userName" id="userName">
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="userName">帳號</label>
+                            <input class="form-control" type="text" name="userName" id="userName">
+                        </div>                        
                     </div>
-                    <div class="form-group">
-                        <label for="userPassword">密碼</label>
-                        <input class="form-control" type="text" name="userPassword" id="userPassword">
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="userPassword">密碼</label>
+                            <input class="form-control" type="text" name="userPassword" id="userPassword">
+                        </div>                        
                     </div>
-                    <div class="form-group">
-                        <button class="btn btn-outline-primary" type="button" name="loginButton" id="loginBUtton">登入</button>
+                    <div class="row">
+                        <button class="btn btn-outline-primary" type="button" name="loginButton" id="loginBUtton">登入</button>                        
                     </div>
                 </form>
             </div>
