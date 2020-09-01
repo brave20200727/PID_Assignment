@@ -11,7 +11,7 @@
 <body>
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <a class="navbar-brand" href="#">購物網站</a>
+            <a class="navbar-brand" href="index.php">購物網站</a>
             <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button> -->
@@ -47,7 +47,6 @@
               </ul>
             </div>
         </nav>
-
         <div class="row" style="margin-top: 10px;">
           <div class="col-3">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">

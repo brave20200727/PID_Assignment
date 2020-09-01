@@ -9,6 +9,5 @@
     <script type="text/javascript" src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 </head>
 <body>
-    
 </body>
 </html>
