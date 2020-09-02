@@ -59,14 +59,14 @@
                             <h6 class="card-title">商品名稱：</h5>
                             <p class="card-text">Apple Watch圖片</p>
                             <h6 class="card-title">價格：</h5>
-                            <p class="card-text" style="color: red;">81000</p>
+                            <p class="card-text">NT$81000</p>
                         </div>
                     </div>
                     <div class="col-2">
                         <div class="card-body">
                             <h5 class="card-title">購買數量</h5>
                             <p class="card-text"><input class="form-control" type="number" min="0" onchange="countAlert($(this));" value="1"></p>
-                            <button type="button" class="btn btn-outline-primary">刪除</button>    
+                            <button type="button" class="btn btn-outline-primary" value="1" onclick="showModal($(this));">刪除</button>    
                         </div>
                     </div>
                 </div>
@@ -85,6 +85,9 @@
             else if(parameter.prop("value") < 0) {
                 alert("數量不可為負！");
             }
+        }
+        function showModal(parameter) {
+            alert(parameter.prop("value"));
         }
     </script>    
 </body>

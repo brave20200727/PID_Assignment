@@ -56,7 +56,7 @@
                 <div class="card-columns">
                     <div class="card">
                         <div class="card-body">
-                        <h5 class="card-title"><a href="#">訂單查詢</a></h5>
+                        <h5 class="card-title"><a href="orderPage.php">訂單查詢</a></h5>
                         <p class="card-text" style="color: gray;">已出貨：0&nbsp;｜&nbsp;未出貨：0</p>
                         </div>
                     </div>
