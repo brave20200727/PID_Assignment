@@ -30,7 +30,7 @@
                 <li class="nav-item">
                   <a class="nav-link" href="cart.php">購物車</a>
                 </li>
-                <li class="nav-item dropdown">
+                <!-- <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Dropdown
                   </a>
@@ -43,30 +43,32 @@
                 </li>
                 <li class="nav-item">
                   <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li>
+                </li> -->
               </ul>
             </div>
         </nav>
         <div class="row" style="margin-top: 10px;">
-            <div class="col-8" style="background-color: lightskyblue; height: 500px;"></div>
+            <div class="col-8"></div>
             <div class="col-4">
-                <form>
-                    <div class="row">
-                        <div class="form-group">
-                            <label for="userName">帳號</label>
-                            <input class="form-control" type="text" name="userName" id="userName">
-                        </div>                        
-                    </div>
-                    <div class="row">
-                        <div class="form-group">
-                            <label for="userPassword">密碼</label>
-                            <input class="form-control" type="text" name="userPassword" id="userPassword">
-                        </div>                        
-                    </div>
-                    <div class="row">
-                        <button class="btn btn-outline-primary" type="button" name="loginButton" id="loginBUtton">登入</button>                        
-                    </div>
-                </form>
+              <form>
+                <div class="row">
+                    <div class="form-group col-12">
+                      <label for="userName">帳號</label>
+                      <input class="form-control" type="text" name="userName" id="userName">
+                    </div>                        
+                </div>
+                <div class="row">
+                    <div class="form-group col-12">
+                      <label for="userPassword">密碼</label>
+                      <input class="form-control" type="password" name="userPassword" id="userPassword">
+                    </div>                        
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <button class="btn btn-outline-primary" type="button" name="loginButton" id="loginButton">登入</button>                    
+                  </div>
+                </div>                
+              </form>
             </div>
         </div>        
     </div>

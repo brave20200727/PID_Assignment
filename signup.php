@@ -31,7 +31,7 @@
                 <li class="nav-item">
                 <a class="nav-link" href="cart.php">購物車</a>
                 </li>
-                <li class="nav-item dropdown">
+                <!-- <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Dropdown
                 </a>
@@ -44,7 +44,7 @@
                 </li>
                 <li class="nav-item">
                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li>
+                </li> -->
             </ul>
             </div>
         </nav>
@@ -65,11 +65,11 @@
                 <div class="row">
                     <div class="form-group col-6">
                         <label for="userPassword">密碼</label>
-                        <input class="form-control" type="text" id="userPassword">
+                        <input class="form-control" type="password" id="userPassword">
                     </div>
                     <div class="form-group col-6">
                         <label for="userPasswordAgain">密碼確認</label>
-                        <input class="form-control" type="text" id="userPasswordAgain">
+                        <input class="form-control" type="password" id="userPasswordAgain">
                     </div>
                 </div>
                 <div class="row">
@@ -81,11 +81,11 @@
                 <div class="row">
                     <div class="form-group col-12">
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="male" name="gender" class="custom-control-input">
+                            <input type="radio" id="male" name="gender" class="custom-control-input" value="male">
                             <label class="custom-control-label" for="male">男</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="female" name="gender" class="custom-control-input">
+                            <input type="radio" id="female" name="gender" class="custom-control-input" value="female">
                             <label class="custom-control-label" for="female">女</label>
                         </div>                      
                     </div>
@@ -98,5 +98,13 @@
             </form>            
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $("input[name=gender]").on("change", function(){
+                console.log($("input[name=gender]:checked").val());
+            })
+        })
+    </script>
 </body>
 </html>
