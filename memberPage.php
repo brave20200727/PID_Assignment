@@ -11,7 +11,7 @@
 <body>
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <a class="navbar-brand" href="index.php">購物網站</a>
+            <a class="navbar-brand" href="http://localhost:8888/PID_Assignment/">購物網站</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
@@ -47,36 +47,38 @@
             </ul>
             </div>
         </nav>
-        <div style="margin-top: 20px;">
-            <h4><span>鑽石會員 陳柏程&nbsp;您好～</span></h2>            
-        </div>
-        <div style="margin-top: 20px;">
-            <h5>交易紀錄</h5>
-            <div class="card-columns">
-                <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title"><a href="#">訂單查詢</a></h5>
-                      <p class="card-text" style="color: gray;">已出貨：0&nbsp;｜&nbsp;未出貨：0</p>
-                    </div>
-                  </div>
+        <div>
+            <div style="margin-top: 20px;">
+                <h4><span>鑽石會員 陳柏程&nbsp;您好～</span></h2>            
             </div>
-        </div>
-        <div style="margin-top: 20px;">
-            <h5>會員資料</h5>
-            <div class="card-columns">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title"><a href="#">修改會員資料</a></h5>
-                        <p class="card-text" style="color: gray;">修改姓名、e-mail...等個人資料</p>
+            <div style="margin-top: 20px;">
+                <h5>交易紀錄</h5>
+                <div class="card-columns">
+                    <div class="card">
+                        <div class="card-body">
+                        <h5 class="card-title"><a href="#">訂單查詢</a></h5>
+                        <p class="card-text" style="color: gray;">已出貨：0&nbsp;｜&nbsp;未出貨：0</p>
+                        </div>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title"><a href="#">修改密碼</a></h5>
-                        <p class="card-text" style="color: gray;">修改您的會員登入密碼</p>
-                    </div>
-                </div>               
             </div>
+            <div style="margin-top: 20px;">
+                <h5>會員資料</h5>
+                <div class="card-columns">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="memberInfo.php">修改會員資料</a></h5>
+                            <p class="card-text" style="color: gray;">修改姓名、e-mail...等個人資料</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="memberPassword.php">修改密碼</a></h5>
+                            <p class="card-text" style="color: gray;">修改您的會員登入密碼</p>
+                        </div>
+                    </div>               
+                </div>
+            </div>            
         </div>
     </div>        
 </body>

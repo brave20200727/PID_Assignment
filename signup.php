@@ -12,7 +12,7 @@
 
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <a class="navbar-brand" href="index.php">購物網站</a>
+            <a class="navbar-brand" href="http://localhost:8888/PID_Assignment/">購物網站</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
@@ -51,16 +51,14 @@
         <div style="margin-top: 10px;">
             <form>
                 <div class="row">
-                    <div class="form-group col-12">
+                    <div class="form-group col-6">
                         <label for="userName">使用者名稱</label>
                         <input class="form-control" type="text" id="userName">
-                    </div>                
-                </div>
-                <div class="row">
-                    <div class="form-group col-12">
+                    </div>
+                    <div class="form-group col-6">
                         <label for="email">電子信箱</label>
                         <input class="form-control" type="text" id="email">
-                    </div>                
+                    </div>                                     
                 </div>
                 <div class="row">
                     <div class="form-group col-6">
@@ -73,22 +71,23 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-12">
+                    <div class="form-group col-6">
                         <label for="birthday">生日</label>
                         <input class="form-control" type="date" id="birthday">
                     </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-12">
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="male" name="gender" class="custom-control-input" value="male">
-                            <label class="custom-control-label" for="male">男</label>
+                    <div class="form-group col-6">
+                        <label>性別</label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" id="male" name="gender" class="form-check-input" value="male">
+                                <label class="form-check-label" for="male">男</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" id="female" name="gender" class="form-check-input" value="female">
+                                <label class="form-check-label" for="female">女</label>
+                            </div>                                 
                         </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="female" name="gender" class="custom-control-input" value="female">
-                            <label class="custom-control-label" for="female">女</label>
-                        </div>                      
-                    </div>
+                    </div>                    
                 </div>
                 <div class="row">
                     <div class="form-group col-12">

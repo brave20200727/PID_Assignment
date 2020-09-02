@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>購物車</title>
+    <title>修改會員密碼</title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -48,44 +48,32 @@
             </div>
         </nav>
         <div style="margin-top: 20px;">
-            <h3>購物車列表</h5>
-            <div class="card" id="cartList">
+            <form>
                 <div class="row">
-                    <div class="col-4">
-                        <img src="img/filip-baotic-FF8Kqb86V38-unsplash.jpg" class="card-img" alt="">
-                    </div>
-                    <div class="col-6">
-                        <div class="card-body">
-                            <h6 class="card-title">商品名稱：</h5>
-                            <p class="card-text">Apple Watch圖片</p>
-                            <h6 class="card-title">價格：</h5>
-                            <p class="card-text" style="color: red;">81000</p>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="card-body">
-                            <h5 class="card-title">購買數量</h5>
-                            <p class="card-text"><input class="form-control" type="number" min="0" onchange="countAlert($(this));" value="1"></p>
-                            <button type="button" class="btn btn-outline-primary">刪除</button>    
-                        </div>
+                    <div class="form-group col-6">
+                        <label for="oldPassword">舊密碼</label>
+                        <input class="form-control" type="text" name="oldPassword" id="oldPassword">
+                    </div>                    
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="newPassword">新密碼</label>
+                        <input class="form-control" type="text" name="newPassword" id="newPassword">
+                    </div>                    
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="newPasswordAgain">新密碼確認</label>
+                        <input class="form-control" type="text" name="newPasswordAgain" id="newPasswordAgain">
+                    </div>                    
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <button class="btn btn-outline-primary" type="button">確認送出</button>
                     </div>
                 </div>
-            </div>                
+            </form>
         </div>
-        <div style="margin-top: 20px; background-color: lightgray; border-radius: 5px;">
-            共 1 項商品，數量 1 個，總金額NT$ 81000 元
-        </div>
-    </div>
-    <script>
-        function countAlert(parameter) {
-            if(parameter.prop("value") == 0){
-                alert("已將商品中購物車中移除！");
-                $("#cartList").empty();
-            }
-            else if(parameter.prop("value") < 0) {
-                alert("數量不可為負！");
-            }
-        }
-    </script>    
+    </div>    
 </body>
 </html>

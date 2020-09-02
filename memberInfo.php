@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>購物車</title>
+    <title>修改會員資料</title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -48,44 +48,59 @@
             </div>
         </nav>
         <div style="margin-top: 20px;">
-            <h3>購物車列表</h5>
-            <div class="card" id="cartList">
+            <form>
                 <div class="row">
-                    <div class="col-4">
-                        <img src="img/filip-baotic-FF8Kqb86V38-unsplash.jpg" class="card-img" alt="">
+                    <div class="form-group col-6">
+                        <label for="userName">使用者名稱</label>
+                        <input class="form-control" type="text" name="userName" id="userName" disabled>
                     </div>
-                    <div class="col-6">
-                        <div class="card-body">
-                            <h6 class="card-title">商品名稱：</h5>
-                            <p class="card-text">Apple Watch圖片</p>
-                            <h6 class="card-title">價格：</h5>
-                            <p class="card-text" style="color: red;">81000</p>
-                        </div>
+                    <div class="form-group col-6">
+                        <label for="birthday">生日</label>
+                        <input class="form-control" type="text" name="birthday" id="birthday" disabled>
                     </div>
-                    <div class="col-2">
-                        <div class="card-body">
-                            <h5 class="card-title">購買數量</h5>
-                            <p class="card-text"><input class="form-control" type="number" min="0" onchange="countAlert($(this));" value="1"></p>
-                            <button type="button" class="btn btn-outline-primary">刪除</button>    
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="name">姓名</label>
+                        <input class="form-control" type="text" name="name" id="name">
+                    </div>
+                    <div class="form-group col-6">
+                        <label>性別</label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" id="male" name="gender" class="form-check-input" value="male">
+                                <label class="form-check-label" for="male">男</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" id="female" name="gender" class="form-check-input" value="female">
+                                <label class="form-check-label" for="female">女</label>
+                            </div>                                 
                         </div>
                     </div>
                 </div>
-            </div>                
-        </div>
-        <div style="margin-top: 20px; background-color: lightgray; border-radius: 5px;">
-            共 1 項商品，數量 1 個，總金額NT$ 81000 元
+                <div class="row">
+                    <div class="form-group col-12">
+                        <label for="phone">電話號碼</label>
+                        <input class="form-control" type="text" name="phone" id="phone">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-4">
+                        <label for="">居住縣市</label>
+                        <input class="form-control" type="text" name="" id="">
+                    </div>
+                    <div class="form-group col-8">
+                        <label for="">居住地址</label>
+                        <input class="form-control" type="text" name="" id="">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-12">
+                        <button class="btn btn-outline-primary" type="button">確認送出</button>
+                    </div>
+                </div>
+            </form>            
         </div>
     </div>
-    <script>
-        function countAlert(parameter) {
-            if(parameter.prop("value") == 0){
-                alert("已將商品中購物車中移除！");
-                $("#cartList").empty();
-            }
-            else if(parameter.prop("value") < 0) {
-                alert("數量不可為負！");
-            }
-        }
-    </script>    
 </body>
 </html>
