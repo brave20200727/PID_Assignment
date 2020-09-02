@@ -47,49 +47,56 @@
                 </li>
             </ul>
             </div>
-        </nav>       
-        <form style="margin-top: 10px;">
-            <div class="row">
-                <div class="form-group col-12">
-                    <label for="userName">使用者名稱</label>
-                    <input class="form-control" type="text" id="userName">
-                </div>                
-            </div>
-            <div class="row">
-                <div class="form-group col-12">
-                    <label for="email">電子信箱</label>
-                    <input class="form-control" type="text" id="email">
-                </div>                
-            </div>
-            <div class="row">
-                <div class="form-group col-6">
-                    <label for="userPassword">密碼</label>
-                    <input class="form-control" type="text" id="userPassword">
+        </nav>
+        <div style="margin-top: 10px;">
+            <form>
+                <div class="row">
+                    <div class="form-group col-12">
+                        <label for="userName">使用者名稱</label>
+                        <input class="form-control" type="text" id="userName">
+                    </div>                
                 </div>
-                <div class="form-group col-6">
-                    <label for="userPasswordAgain">密碼確認</label>
-                    <input class="form-control" type="text" id="userPasswordAgain">
+                <div class="row">
+                    <div class="form-group col-12">
+                        <label for="email">電子信箱</label>
+                        <input class="form-control" type="text" id="email">
+                    </div>                
                 </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-12">
-                    <label for="birthday">生日</label>
-                    <input class="form-control" type="date" id="birthday">
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-12">
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
-                        <label class="custom-control-label" for="customRadioInline1">男</label>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="userPassword">密碼</label>
+                        <input class="form-control" type="text" id="userPassword">
                     </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
-                        <label class="custom-control-label" for="customRadioInline2">女</label>
-                    </div>                      
+                    <div class="form-group col-6">
+                        <label for="userPasswordAgain">密碼確認</label>
+                        <input class="form-control" type="text" id="userPasswordAgain">
+                    </div>
                 </div>
-            </div>
-        </form>
+                <div class="row">
+                    <div class="form-group col-12">
+                        <label for="birthday">生日</label>
+                        <input class="form-control" type="date" id="birthday">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-12">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="male" name="gender" class="custom-control-input">
+                            <label class="custom-control-label" for="male">男</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="female" name="gender" class="custom-control-input">
+                            <label class="custom-control-label" for="female">女</label>
+                        </div>                      
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-12">
+                        <button type="button" class="btn btn-outline-primary">確認送出</button>
+                    </div>
+                </div>
+            </form>            
+        </div>
     </div>
 </body>
 </html>
