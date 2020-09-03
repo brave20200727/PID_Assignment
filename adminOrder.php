@@ -57,7 +57,7 @@
                   <button class="btn btn-link text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                     訂單編號：202009021640
                   </button>
-                  <button class="btn btn-danger float-right" value="202009021640" id="deleteButton">刪除</button>
+                  <button class="btn btn-outline-danger float-right" value="202009021640" id="deleteButton">取消訂單</button>
                   <button class="btn btn-success float-right" style="margin-right: 10px;" disabled>已出貨</button>
                 </h2>
               </div>
@@ -96,7 +96,7 @@
                   <button class="btn btn-link text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                     訂單編號：202009021650
                   </button>
-                  <button class="btn btn-danger float-right">刪除</button>
+                  <button class="btn btn-outline-danger float-right">取消訂單</button>
                   <button class="btn btn-primary float-right" style="margin-right: 10px;" disabled>待出貨</button>
                 </h2>
               </div>
@@ -112,7 +112,7 @@
                   <button class="btn btn-link text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                     訂單編號：202009021700
                   </button>
-                  <button class="btn btn-danger float-right">刪除</button>
+                  <button class="btn btn-outline-danger float-right">取消訂單</button>
                   <button class="btn btn-primary float-right" style="margin-right: 10px;" disabled>待出貨</button>
                 </h2>
               </div>

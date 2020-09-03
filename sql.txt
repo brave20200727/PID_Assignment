@@ -1,0 +1,11 @@
+CREATE TABLE users (
+    userName varchar(32),
+    userPassword varchar(64),
+    email varchar(64),
+    birthday date,
+    gender int,
+    name varchar(8),
+    phone varchar(16),
+    city varchar(8),
+    address varchar(64)
+);

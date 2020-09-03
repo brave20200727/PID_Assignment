@@ -73,7 +73,7 @@
                 <div class="card-columns">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title"><a href="#">會員列表</a></h5>
+                            <h5 class="card-title"><a href="usersPage.php">會員列表</a></h5>
                             <p class="card-text" style="color: gray;">可顯示、停用會員 (停用該會員則該會員不可登入 或操作)</p>
                         </div>
                     </div>            
@@ -84,7 +84,7 @@
                 <div class="card-columns">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title"><a href="#">商品列表</a></h5>
+                            <h5 class="card-title"><a href="productPage.php">商品列表</a></h5>
                             <p class="card-text" style="color: gray;">新增刪除修改商品</p>
                         </div>
                     </div>            

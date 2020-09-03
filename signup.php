@@ -79,11 +79,11 @@
                         <label>性別</label>
                         <div>
                             <div class="form-check form-check-inline">
-                                <input type="radio" id="male" name="gender" class="form-check-input" value="male">
+                                <input type="radio" id="male" name="gender" class="form-check-input" value="1">
                                 <label class="form-check-label" for="male">男</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="radio" id="female" name="gender" class="form-check-input" value="female">
+                                <input type="radio" id="female" name="gender" class="form-check-input" value="2">
                                 <label class="form-check-label" for="female">女</label>
                             </div>                                 
                         </div>
@@ -91,7 +91,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-12">
-                        <button type="button" class="btn btn-outline-primary">確認送出</button>
+                        <button type="button" class="btn btn-outline-primary" id="signupButton">確認送出</button>
                     </div>
                 </div>
             </form>            
@@ -100,8 +100,44 @@
 
     <script>
         $(document).ready(function() {
-            $("input[name=gender]").on("change", function(){
-                console.log($("input[name=gender]:checked").val());
+            // $("input[name=gender]").on("change", function(){
+            //     console.log($("input[name=gender]:checked").val());
+            // })
+            $("#signupButton").on("click", function() {
+                let data2Server = {
+                    userName: $("#userName").prop("value"),
+                    userPassword: $("#userPassword").prop("value"),
+                    userPasswordAgain: $("#userPasswordAgain").prop("value"),
+                    email: $("#email").prop("value"),
+                    birthday: $("#birthday").prop("value"),
+                    gender: $("input[name=gender]:checked").prop("value"),
+                    signupButton: 1                 
+                }
+                let re = /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/;
+                if(data2Server["userPassword"] != data2Server["userPasswordAgain"]){
+                    alert("兩次輸入密碼不一致！");
+                }
+                else if(data2Server["userPassword"] == "" || data2Server["userPasswordAgain"] == "") {
+                    alert("密碼或密碼確認不可以沒輸入東西！");
+                }
+                else if(!re.test(data2Server["email"])) {
+                    alert("信箱格式不符！");
+                }
+                else if(!data2Server["userName"] || !data2Server["birthday"] || !data2Server["gender"]) {
+                    alert("有資料沒填到喔！");
+                }
+                else {
+                    
+                    $.ajax({
+                        type: "POST",
+                        url: "api.php",
+                        data: data2Server
+                    }).then(function(dataFromServer) {
+                        console.log(dataFromServer);
+                    }).catch(function(e) {
+                        console.log(e);
+                    });
+                }
             })
         })
     </script>
