@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>修改會員密碼</title>
+    <title>管理中心</title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -47,33 +47,50 @@
             </ul>
             </div>
         </nav>
-        <div style="margin-top: 20px;">
-            <form>
-                <div class="row">
-                    <div class="form-group col-6">
-                        <label for="oldPassword">舊密碼</label>
-                        <input class="form-control" type="text" name="oldPassword" id="oldPassword">
-                    </div>                    
-                </div>
-                <div class="row">
-                    <div class="form-group col-6">
-                        <label for="newPassword">新密碼</label>
-                        <input class="form-control" type="text" name="newPassword" id="newPassword">
-                    </div>                    
-                </div>
-                <div class="row">
-                    <div class="form-group col-6">
-                        <label for="newPasswordAgain">新密碼確認</label>
-                        <input class="form-control" type="text" name="newPasswordAgain" id="newPasswordAgain">
-                    </div>                    
-                </div>
-                <div class="row">
-                    <div class="form-group col-6">
-                        <button class="btn btn-outline-primary" type="button">確認送出</button>
+        <div>
+            <div style="margin-top: 20px;">
+                <h4><span>管理者&nbsp;您好～</span></h2>            
+            </div>
+            <div style="margin-top: 20px;">
+                <h5>交易紀錄</h5>
+                <div class="card-columns">
+                    <div class="card">
+                        <div class="card-body">
+                        <h5 class="card-title"><a href="#">訂單查詢</a></h5>
+                        <p class="card-text" style="color: gray;">查看消費者訂單資訊</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="#">報表</a></h5>
+                            <p class="card-text" style="color: gray;">觀看各商品銷售狀況</p>
+                        </div>
                     </div>
                 </div>
-            </form>
+            </div>
+            <div style="margin-top: 20px;">
+                <h5>會員管理</h5>
+                <div class="card-columns">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="#">會員列表</a></h5>
+                            <p class="card-text" style="color: gray;">可顯示、停用會員 (停用該會員則該會員不可登入 或操作)</p>
+                        </div>
+                    </div>            
+                </div>
+            </div>
+            <div style="margin-top: 20px;">
+                <h5>商品管理</h5>
+                <div class="card-columns">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="#">商品列表</a></h5>
+                            <p class="card-text" style="color: gray;">新增刪除修改商品</p>
+                        </div>
+                    </div>            
+                </div>
+            </div>
         </div>
-    </div>    
+    </div>
 </body>
 </html>
