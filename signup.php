@@ -131,9 +131,17 @@
                     $.ajax({
                         type: "POST",
                         url: "api.php",
-                        data: data2Server
+                        data: data2Server,
+                        dataType: "json"
                     }).then(function(dataFromServer) {
-                        console.log(dataFromServer);
+                        // console.log(dataFromServer);
+                        if(dataFromServer["errorCode"] == 1) {
+                            alert("此使用者名稱已經註冊過了！");
+                        }
+                        else if(dataFromServer["errorCode"] == 666) {
+                            alert("恭喜註冊成功！");
+                            $(location).prop("href","login.php");
+                        }
                     }).catch(function(e) {
                         console.log(e);
                     });

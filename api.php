@@ -21,14 +21,14 @@
         $row = mysqli_fetch_assoc($result);
         if($rowNum == 0) {
             $sqlCommand = <<< multi
-                INSERT INTO users(userName, userPassword, email, birthday, gender)
-                VALUE ('$userName', '$userPassword', '$email', '$birthday', '$gender')
+                INSERT INTO users(userName, userPassword, email, birthday, gender, userType)
+                VALUE ('$userName', '$userPassword', '$email', '$birthday', '$gender', 1)
             multi;
             mysqli_query($dbLink, $sqlCommand);
             echo '{"errorCode": 666}';            
         }
         else{
-            echo '{"errorCode": 2}';            
+            echo '{"errorCode": 1}';            
         }
     }
 ?>
