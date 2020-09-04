@@ -56,29 +56,32 @@
             <div class="card" id="cartList">
                 <div class="row">
                     <div class="col-4">
-                        <img src="img/filip-baotic-FF8Kqb86V38-unsplash.jpg" class="card-img" alt="">
+                        <img src="img/filip-baotic-FF8Kqb86V38-unsplash.jpg" class="card-img">
                     </div>
                     <div class="col-6">
                         <div class="card-body">
-                            <h6 class="card-title">商品名稱：</h5>
-                            <p class="card-text">Apple Watch圖片</p>
-                            <h6 class="card-title">價格：</h5>
-                            <p class="card-text">NT$81000</p>
+                            <h6>商品名稱：</h6>
+                            <p>Apple Watch圖片</p>
+                            <h6>商品介紹</h6>
+                            <p>這就只是一張Apple watch的圖片而已</p>
+                            <h6>價格：</h5>
+                            <p>NT$81000</p>
                         </div>
                     </div>
                     <div class="col-2">
                         <div class="card-body">
-                            <h5 class="card-title">購買數量</h5>
-                            <p class="card-text"><input class="form-control" type="number" min="0" onchange="countAlert($(this));" value="1"></p>
+                            <h5>購買數量</h5>
+                            <p><input class="form-control" type="number" min="0" onchange="countAlert($(this));" value="1"></p>
                             <button type="button" class="btn btn-outline-primary" value="1" onclick="showModal($(this));">刪除</button>    
                         </div>
                     </div>
                 </div>
-            </div>                
+            </div>
+            <div style="margin-top: 20px; background-color: lightgray; border-radius: 5px;" id="summary">
+                共 1 項商品，數量 1 個，總金額NT$ 81000 元
+            </div>                            
         </div>
-        <div style="margin-top: 20px; background-color: lightgray; border-radius: 5px;">
-            共 1 項商品，數量 1 個，總金額NT$ 81000 元
-        </div>
+        <div id="test"></div>
     </div>
     <script>
         function countAlert(parameter) {
@@ -93,6 +96,30 @@
         function showModal(parameter) {
             alert(parameter.prop("value"));
         }
+
+        $(document).ready(function() {
+            let data2Server = {
+                getCart: 1
+            }
+            $.ajax({
+                type: "POST",
+                url: "api.php",
+                data: data2Server,
+                dataType: "json"
+            }).then(function(dataFromServer) {
+                console.log(dataFromServer);
+                let productImg = $("<img>").addClass("card-img");
+                let imgDiv = $("<div></div>").addClass("col-4").append(productImg);
+                let productText = $("<div></div>").addClass("card-body");
+                productText.append($("<h6></h6>").append("商品名稱：")).append($("<h6></h6>").append(dataFromServer[0]["productName"]));
+                productText.append($("<h6></h6>").append("商品介紹：")).append($("<h6></h6>").append(dataFromServer[0]["description"]));
+                productText.append($("<h6></h6>").append("價格：")).append($("<h6></h6>").append(dataFromServer[0]["price"]));
+                let textDiv = $("<div></div>").addClass("col-6").append(productText);
+                $("#test").append(textDiv);
+            }).catch(function(e) {
+                console.log(e);
+            });
+        });
     </script>    
 </body>
 </html>

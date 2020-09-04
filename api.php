@@ -25,10 +25,10 @@
                 VALUE ('$userName', '$userPassword', '$email', '$birthday', '$gender', 1, 1)
             multi;
             mysqli_query($dbLink, $sqlCommand);
-            echo '{"errorCode": 666}';            
+            echo '{"errorCode": 666}';
         }
         else{
-            echo '{"errorCode": 1}';            
+            echo '{"errorCode": 1}';
         }
     }
     else if(isset($_POST["loginButton"])) {
@@ -94,5 +94,42 @@
             mysqli_query($dbLink, $sqlCommand);
             echo '{"errorCode": 666}';
         }
+    }
+    else if(isset($_POST["getUserOrder"])) {
+        $userName = $_SESSION["userName"];
+        $sqlCommand = <<< multi
+            SELECT * FROM orders WHERE userId = (SELECT userId FROM users WHERE userName = '$userName')
+        multi;
+        $result = mysqli_query($dbLink, $sqlCommand);
+        while($row = mysqli_fetch_assoc($result)) {
+            $order[] = $row;
+        }
+        // var_dump($order);
+        for($i = 0;$i < count($order); $i++) {
+            $orderId = $order[$i]["orderId"];
+            $sqlCommand = <<< multi
+                SELECT od.orderId, p.productName, p.price, od.qty FROM orderDetails od JOIN products p ON od.productId = p.productId WHERE orderId = $orderId
+            multi;
+            $result = mysqli_query($dbLink, $sqlCommand);
+            $orderDetail= array();
+            while($row = mysqli_fetch_assoc($result)) {
+                $orderDetail[] = $row;
+            }
+            $order[$i]["orderDetails"] = $orderDetail;            
+        }
+        // var_dump($order);
+        echo json_encode($order);
+    }
+    else if(isset($_POST["getCart"])) {
+        $userName = $_SESSION["userName"];
+        $sqlCommand = <<< multi
+            SELECT * FROM cart c JOIN products p ON c.productId = p.productId WHERE userId = (SELECT userId FROM users WHERE userName = '$userName')
+        multi;
+        $result = mysqli_query($dbLink, $sqlCommand);
+        $cartItems = array();
+        while($row = mysqli_fetch_assoc($result)) {
+            $cartItems[] = $row;
+        }
+        echo json_encode($cartItems);
     }
 ?>

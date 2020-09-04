@@ -86,22 +86,5 @@
             </div>            
         </div>
     </div>
-    
-    <script>
-        $(document).ready(function() {
-            let data2Server = {
-                getUserOrder: 1
-            }
-            $.ajax({
-                type: "POST",
-                url: "api.php",
-                data: data2Server
-            }).then(function(dataFromServer) {
-                console.log(dataFromServer);
-            }).catch(function(e) {
-                console.log(e);
-            });
-        });
-    </script>
 </body>
 </html>
