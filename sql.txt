@@ -9,3 +9,4 @@ CREATE TABLE users (
     city varchar(8),
     address varchar(64)
 );
+INSERT INTO productTypes (TypeName) VALUES ('電子書'), ('繁體中文書'), ('簡體中文書'), ('外文書'), ('雜誌'), ('漫畫'), ('文具用品')

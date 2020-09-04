@@ -1,3 +1,12 @@
+<?php
+  session_start();
+  if(isset($_SESSION["userName"])) {
+    $isLogin = true;
+    $userType = $_SESSION["userType"];
+  } else {
+    $isLogin = false;
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,32 +27,27 @@
         
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="login.php">登入</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="memberPage.php">會員中心</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="adminPage.php">管理中心</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="cart.php">購物車</a>
-              </li>
-                <!-- <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-                </li>
+              <?php if($isLogin) {?>
                 <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li> -->
+                  <a class="nav-link" href="login.php?logout=1">登出</a>
+                </li>
+                <?php if($userType == 1) {?>
+                  <li class="nav-item">
+                    <a class="nav-link" href="memberPage.php">會員中心</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="cart.php">購物車</a>
+                  </li>                         
+                <?php } else {?>
+                  <li class="nav-item">
+                    <a class="nav-link" href="adminPage.php">管理中心</a>
+                  </li>
+                <?php }?>     
+              <?php } else {?>
+                <li class="nav-item">
+                  <a class="nav-link" href="login.php">登入</a>
+                </li>
+              <?php } ?>
             </ul>
             </div>
         </nav>
@@ -56,7 +60,6 @@
                         訂單編號：202009021640
                       </button>
                       <button class="btn btn-success float-right" disabled>已出貨</button>
-                      <!-- <button class="btn btn-danger float-right" style="margin-right: 10px;">刪除</button> -->
                     </h2>
                   </div>
                   <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
@@ -85,36 +88,6 @@
                             </tr>
                             </tbody>
                         </table>
-                    </div>
-                  </div>
-                </div>
-                <div class="card">
-                  <div class="card-header" id="headingTwo">
-                    <h2 class="mb-0">
-                      <button class="btn btn-link text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        訂單編號：202009021650
-                      </button>
-                      <button class="btn btn-primary float-right" disabled>待出貨</button>
-                    </h2>
-                  </div>
-                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                    <div class="card-body">
-                        這是第二筆訂單內容
-                    </div>
-                  </div>
-                </div>
-                <div class="card">
-                  <div class="card-header" id="headingThree">
-                    <h2 class="mb-0">
-                      <button class="btn btn-link text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        訂單編號：202009021700
-                      </button>
-                      <button class="btn btn-primary float-right" disabled>待出貨</button>
-                    </h2>
-                  </div>
-                  <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                    <div class="card-body">
-                        這是第三筆訂單內容
                     </div>
                   </div>
                 </div>

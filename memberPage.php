@@ -1,3 +1,13 @@
+<?php
+  session_start();
+  if(isset($_SESSION["userName"])) {
+    $isLogin = true;
+    $userType = $_SESSION["userType"];
+    $userName = $_SESSION["userName"];
+  } else {
+    $isLogin = false;
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,38 +28,33 @@
         
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
+                <?php if($isLogin) {?>
+                  <li class="nav-item">
+                    <a class="nav-link" href="login.php?logout=1">登出</a>
+                  </li>
+                  <?php if($userType == 1) {?>
+                    <li class="nav-item">
+                      <a class="nav-link" href="memberPage.php">會員中心</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cart.php">購物車</a>
+                    </li>                     
+                  <?php } else {?>
+                    <li class="nav-item">
+                      <a class="nav-link" href="adminPage.php">管理中心</a>
+                    </li>
+                  <?php }?>       
+                <?php } else {?>
+                  <li class="nav-item">
                     <a class="nav-link" href="login.php">登入</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="memberPage.php">會員中心</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="adminPage.php">管理中心</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="cart.php">購物車</a>
-                </li>
-                <!-- <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li> -->
+                  </li>
+                <?php } ?>
             </ul>
             </div>
         </nav>
         <div>
             <div style="margin-top: 20px;">
-                <h4><span>鑽石會員 陳柏程&nbsp;您好～</span></h2>            
+                <h4><span><?php echo $userName?>&nbsp;您好～</span></h2>            
             </div>
             <div style="margin-top: 20px;">
                 <h5>交易紀錄</h5>
@@ -80,6 +85,23 @@
                 </div>
             </div>            
         </div>
-    </div>        
+    </div>
+    
+    <script>
+        $(document).ready(function() {
+            let data2Server = {
+                getUserOrder: 1
+            }
+            $.ajax({
+                type: "POST",
+                url: "api.php",
+                data: data2Server
+            }).then(function(dataFromServer) {
+                console.log(dataFromServer);
+            }).catch(function(e) {
+                console.log(e);
+            });
+        });
+    </script>
 </body>
 </html>

@@ -1,3 +1,12 @@
+<?php
+  session_start();
+  if(isset($_SESSION["userName"])) {
+    $isLogin = true;
+    $userType = $_SESSION["userType"];
+  } else {
+    $isLogin = false;
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,32 +27,27 @@
           
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                  <a class="nav-link" href="login.php">登入</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="memberPage.php">會員中心</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="adminPage.php">管理中心</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="cart.php">購物車</a>
-                </li>
-                <!-- <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                  </div>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li> -->
+                <?php if($isLogin) {?>
+                  <li class="nav-item">
+                    <a class="nav-link" href="login.php?logout=1">登出</a>
+                  </li>
+                  <?php if($userType == 1) {?>
+                    <li class="nav-item">
+                      <a class="nav-link" href="memberPage.php">會員中心</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cart.php">購物車</a>
+                    </li>                      
+                  <?php } else {?>
+                    <li class="nav-item">
+                      <a class="nav-link" href="adminPage.php">管理中心</a>
+                    </li>
+                  <?php }?>      
+                <?php } else {?>
+                  <li class="nav-item">
+                    <a class="nav-link" href="login.php">登入</a>
+                  </li>
+                <?php } ?>
               </ul>
             </div>
         </nav>
@@ -62,7 +66,7 @@
           <div class="col-9">
             <div class="tab-content" id="v-pills-tabContent">
               <div class="tab-pane fade show active" id="v-pills-eBooks" role="tabpanel" aria-labelledby="v-pills-eBooks-tab">
-                <h1>熱門商品</h1>
+                <!-- <h1>熱門商品</h1> -->
                 <div class="row">
                   <div class="col-6"><img src="img/tasos-mansour-DslcVKYR0XU-unsplash.jpg" alt="" height="250px" class="img-thumbnail"></div>
                   <div class="col-6">
@@ -70,7 +74,6 @@
                     <p>蜻蜓圖片</p>
                     <h5>商品介紹：</h5>
                     <p>這就是一張蜻蜓的圖片而已！</p>
-                    <button class="btn btn-outline-primary" value="1" onclick='$(location).prop("href", "productPage.php?productId=" + $(this).prop("value"));'>加入購物車</button>
                   </div>
                 </div>
                 <div class="row float-right">
@@ -78,7 +81,7 @@
                 </div> 
               </div>
               <div class="tab-pane fade" id="v-pills-tcBooks" role="tabpanel" aria-labelledby="v-pills-tcBooks-tab">
-                <h1>熱門商品</h1>
+                <!-- <h1>熱門商品</h1> -->
                 <div class="row">
                   <div class="col-6"><img src="img/veronica-reverse-diAIZW5IWBY-unsplash.jpg" alt="" height="250px" class="img-thumbnail"></div>
                   <div class="col-6">
@@ -93,7 +96,7 @@
                 </div> 
               </div>
               <div class="tab-pane fade" id="v-pills-scBooks" role="tabpanel" aria-labelledby="v-pills-scBooks-tab">
-                <h1>熱門商品</h1>
+                <!-- <h1>熱門商品</h1> -->
                 <div class="row">
                   <div class="col-6"><img src="img/racim-amr-8KKGTKmULU8-unsplash.jpg" alt="" height="250px" class="img-thumbnail"></div>
                   <div class="col-6">
@@ -108,7 +111,7 @@
                 </div> 
               </div>
               <div class="tab-pane fade" id="v-pills-foreignBooks" role="tabpanel" aria-labelledby="v-pills-foreignBooks-tab">
-                <h1>熱門商品</h1>
+                <!-- <h1>熱門商品</h1> -->
                 <div class="row">
                   <div class="col-6"><img src="img/jakob-owens-_jYLJodqEoY-unsplash.jpg" alt="" height="250px" class="img-thumbnail"></div>
                   <div class="col-6">
@@ -123,7 +126,7 @@
                 </div>
               </div>
               <div class="tab-pane fade" id="v-pills-magazine" role="tabpanel" aria-labelledby="v-pills-magazine-tab">
-                <h1>熱門商品</h1>
+                <!-- <h1>熱門商品</h1> -->
                 <div class="row">
                   <div class="col-6"><img src="img/juvnsky-ru-_jn3oOccQtM-unsplash.jpg" alt="" height="250px" class="img-thumbnail"></div>
                   <div class="col-6">

@@ -1,3 +1,12 @@
+<?php
+  session_start();
+  if(isset($_SESSION["userName"])) {
+    $isLogin = true;
+    $userType = $_SESSION["userType"];
+  } else {
+    $isLogin = false;
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,32 +27,27 @@
         
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
+                <?php if($isLogin) {?>
+                  <li class="nav-item">
+                    <a class="nav-link" href="login.php?logout=1">登出</a>
+                  </li>
+                  <?php if($userType == 1) {?>
+                    <li class="nav-item">
+                      <a class="nav-link" href="memberPage.php">會員中心</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cart.php">購物車</a>
+                    </li>                      
+                  <?php } else {?>
+                    <li class="nav-item">
+                      <a class="nav-link" href="adminPage.php">管理中心</a>
+                    </li>
+                  <?php }?>       
+                <?php } else {?>
+                  <li class="nav-item">
                     <a class="nav-link" href="login.php">登入</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="memberPage.php">會員中心</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="adminPage.php">管理中心</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="cart.php">購物車</a>
-                </li>
-                <!-- <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li> -->
+                  </li>
+                <?php } ?>
             </ul>
             </div>
         </nav>
@@ -68,11 +72,11 @@
                         <label>性別</label>
                         <div>
                             <div class="form-check form-check-inline">
-                                <input type="radio" id="male" name="gender" class="form-check-input" value="male">
+                                <input type="radio" id="male" name="gender" class="form-check-input" value="1">
                                 <label class="form-check-label" for="male">男</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="radio" id="female" name="gender" class="form-check-input" value="female">
+                                <input type="radio" id="female" name="gender" class="form-check-input" value="2">
                                 <label class="form-check-label" for="female">女</label>
                             </div>                                 
                         </div>
@@ -87,20 +91,75 @@
                 <div class="row">
                     <div class="form-group col-4">
                         <label for="">居住縣市</label>
-                        <input class="form-control" type="text" name="" id="">
+                        <input class="form-control" type="text" name="city" id="city">
                     </div>
                     <div class="form-group col-8">
                         <label for="">居住地址</label>
-                        <input class="form-control" type="text" name="" id="">
+                        <input class="form-control" type="text" name="address" id="address">
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-12">
-                        <button class="btn btn-outline-primary" type="button">確認送出</button>
+                        <button class="btn btn-outline-primary" type="button" id="updateInfoButton">確認送出</button>
                     </div>
                 </div>
             </form>            
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            let data2Server = {
+                getUserInfo: 1
+            }
+            $.ajax({
+                type: "POST",
+                url: "api.php",
+                data: data2Server,
+                dataType: "json"
+            }).then(function(dataFromServer) {
+                console.log(dataFromServer);
+                $("#userName").prop("value", dataFromServer["userName"]);
+                $("#birthday").prop("value", dataFromServer["birthday"]);
+                $("#name").prop("value", dataFromServer["name"]);
+                $("#phone").prop("value", dataFromServer["phone"]);
+                $("#city").prop("value", dataFromServer["city"]);
+                $("#address").prop("value", dataFromServer["address"]);
+                if(dataFromServer["gender"] == 1) {
+                    $("input[name=gender]")[0].checked = true;
+                } else {
+                    $("input[name=gender]")[1].checked = true;
+                }
+
+            }).catch(function(e) {
+                console.log(e);
+            });   
+
+            $("#updateInfoButton").on("click", function() {
+                let data2Server = {
+                    name: $("#name").prop("value"),
+                    phone: $("#phone").prop("value"),
+                    city: $("#city").prop("value"),
+                    address: $("#address").prop("value"),
+                    updateUserInfo: 1
+                }      
+                console.log(data2Server);
+                $.ajax({
+                    type: "POST",
+                    url: "api.php",
+                    data: data2Server,
+                    dataType: "json"
+                }).then(function(dataFromServer) {
+                    console.log(dataFromServer);
+                    if(dataFromServer["errorCode"] == 666) {
+                        alert("資料修改成功！");
+                        $(location).prop("href", "memberPage.php");
+                    }
+                }).catch(function(e) {
+                    console.log(e);
+                });          
+            })
+        })
+    </script>
 </body>
 </html>

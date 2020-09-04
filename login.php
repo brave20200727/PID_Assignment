@@ -1,3 +1,16 @@
+<?php
+  session_start();
+  if(isset($_SESSION["userName"])) {
+    $isLogin = true;
+    $userType = $_SESSION["userType"];
+  } else {
+    $isLogin = false;
+  }
+  if(isset($_GET["logout"])) {
+    session_destroy();
+    header("Location: login.php");
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,32 +31,27 @@
           
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                  <a class="nav-link" href="login.php">登入</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="memberPage.php">會員中心</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="adminPage.php">管理中心</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="cart.php">購物車</a>
-                </li>
-                <!-- <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                  </div>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li> -->
+                <?php if($isLogin) {?>
+                  <li class="nav-item">
+                    <a class="nav-link" href="login.php?logout=1">登出</a>
+                  </li>
+                  <?php if($userType == 1) {?>
+                    <li class="nav-item">
+                      <a class="nav-link" href="memberPage.php">會員中心</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cart.php">購物車</a>
+                    </li>                       
+                  <?php } else {?>
+                    <li class="nav-item">
+                      <a class="nav-link" href="adminPage.php">管理中心</a>
+                    </li>
+                  <?php }?>      
+                <?php } else {?>
+                  <li class="nav-item">
+                    <a class="nav-link" href="login.php">登入</a>
+                  </li>
+                <?php } ?>
               </ul>
             </div>
         </nav>
@@ -73,5 +81,40 @@
             </div>
         </div>        
     </div>
+
+    <script>
+      $(document).ready(function() {
+        $("#loginButton").on("click", function() {
+          let data2Srever = {
+            userName: $("#userName").prop("value"),
+            userPassword: $("#userPassword").prop("value"),
+            loginButton: 1
+          }
+          // console.log(data2Srever);
+          if(data2Srever["userName"] == "" || data2Srever["userPassword"] == "") {
+            alert("使用者名稱或是密碼未輸入喔！");
+          } else {
+            $.ajax({
+              type: "POST",
+              url: "api.php",
+              data: data2Srever,
+              dataType: "json"
+            }).then(function(dataFromServer) {
+              console.log(dataFromServer);
+              if(dataFromServer["errorCode"] == 666) {
+                alert("登入成功喔！");
+                $(location).prop("href", "index.php");
+              } else if(dataFromServer["errorCode"] == 1) {
+                alert("這個使用者名稱還沒註冊過喔！");
+              } else if(dataFromServer["errorCode"] == 2) {
+                alert("密碼輸入錯誤！");
+              }
+            }).catch(function(e) {
+              console.log(e);
+            });
+          }
+        })
+      });
+    </script>
 </body>
 </html>
