@@ -20,7 +20,7 @@
 <body>
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">  
-            <a class="navbar-brand" href="http://localhost:8888/PID_Assignment/">購物網站</a>
+            <a class="navbar-brand" href="index.php">購物網站</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -66,109 +66,18 @@
           <div class="col-9">
             <div class="tab-content" id="v-pills-tabContent">
               <div class="tab-pane fade show active" id="v-pills-eBooks" role="tabpanel" aria-labelledby="v-pills-eBooks-tab">
-                <!-- <h1>熱門商品</h1> -->
-                <div class="row">
-                  <div class="col-6"><img src="img/tasos-mansour-DslcVKYR0XU-unsplash.jpg" alt="" height="250px" class="img-thumbnail"></div>
-                  <div class="col-6">
-                    <h5>商品名稱：</h5>
-                    <p>蜻蜓圖片</p>
-                    <h5>商品介紹：</h5>
-                    <p>這就是一張蜻蜓的圖片而已！</p>
-                  </div>
-                </div>
-                <div class="row float-right">
-                  <a href="#">更多>>></a>
-                </div> 
               </div>
               <div class="tab-pane fade" id="v-pills-tcBooks" role="tabpanel" aria-labelledby="v-pills-tcBooks-tab">
-                <!-- <h1>熱門商品</h1> -->
-                <div class="row">
-                  <div class="col-6"><img src="img/veronica-reverse-diAIZW5IWBY-unsplash.jpg" alt="" height="250px" class="img-thumbnail"></div>
-                  <div class="col-6">
-                    <h5>商品名稱：</h5>
-                    <p>蝴蝶圖片</p>
-                    <h5>商品介紹：</h5>
-                    <p>這就是一張蝴蝶的圖片而已！</p>
-                  </div>
-                </div>
-                <div class="row float-right">
-                  <a href="#">更多>>></a>
-                </div> 
               </div>
               <div class="tab-pane fade" id="v-pills-scBooks" role="tabpanel" aria-labelledby="v-pills-scBooks-tab">
-                <!-- <h1>熱門商品</h1> -->
-                <div class="row">
-                  <div class="col-6"><img src="img/racim-amr-8KKGTKmULU8-unsplash.jpg" alt="" height="250px" class="img-thumbnail"></div>
-                  <div class="col-6">
-                    <h5>商品名稱：</h5>
-                    <p>海獅圖片</p>
-                    <h5>商品介紹：</h5>
-                    <p>這就是一張海獅的圖片而已！</p>
-                  </div>
-                </div>
-                <div class="row float-right">
-                  <a href="#">更多>>></a>
-                </div> 
               </div>
               <div class="tab-pane fade" id="v-pills-foreignBooks" role="tabpanel" aria-labelledby="v-pills-foreignBooks-tab">
-                <!-- <h1>熱門商品</h1> -->
-                <div class="row">
-                  <div class="col-6"><img src="img/jakob-owens-_jYLJodqEoY-unsplash.jpg" alt="" height="250px" class="img-thumbnail"></div>
-                  <div class="col-6">
-                    <h5>商品名稱：</h5>
-                    <p>GoPro圖片</p>
-                    <h5>商品介紹：</h5>
-                    <p>這就是一張GoPro的圖片而已！</p>
-                  </div>
-                </div>
-                <div class="row float-right">
-                  <a href="#">更多>>></a>
-                </div>
               </div>
               <div class="tab-pane fade" id="v-pills-magazine" role="tabpanel" aria-labelledby="v-pills-magazine-tab">
-                <!-- <h1>熱門商品</h1> -->
-                <div class="row">
-                  <div class="col-6"><img src="img/juvnsky-ru-_jn3oOccQtM-unsplash.jpg" alt="" height="250px" class="img-thumbnail"></div>
-                  <div class="col-6">
-                    <h5>商品名稱：</h5>
-                    <p>雷蛇耳機圖片</p>
-                    <h5>商品介紹：</h5>
-                    <p>這就是一張雷蛇耳機的圖片而已！</p>
-                  </div>
-                </div>
-                <div class="row float-right">
-                  <a href="#">更多>>></a>
-                </div>
               </div>
               <div class="tab-pane fade" id="v-pills-comics" role="tabpanel" aria-labelledby="v-pills-comics-tab">
-                <h1>熱門商品</h1>
-                <div class="row">
-                  <div class="col-6"><img src="img/filip-baotic-FF8Kqb86V38-unsplash.jpg" alt="" height="250px" class="img-thumbnail"></div>
-                  <div class="col-6">
-                    <h5>商品名稱：</h5>
-                    <p>Apple Watch圖片</p>
-                    <h5>商品介紹：</h5>
-                    <p>這就是一張Apple Watch的圖片而已！</p>
-                  </div>
-                </div>
-                <div class="row float-right">
-                  <a href="#">更多>>></a>
-                </div>
               </div>
               <div class="tab-pane fade" id="v-pills-stationery" role="tabpanel" aria-labelledby="v-pills-stationery-tab">
-                <h1>熱門商品</h1>
-                <div class="row">
-                  <div class="col-6"><img src="img/sean-stone-dkb3wApu5XQ-unsplash.jpg" alt="" height="250px" class="img-thumbnail"></div>
-                  <div class="col-6">
-                    <h5>商品名稱：</h5>
-                    <p>Dual Shock圖片</p>
-                    <h5>商品介紹：</h5>
-                    <p>這就是一張Dual Shock的圖片而已！</p>
-                  </div>
-                </div>
-                <div class="row float-right">
-                  <a href="#">更多>>></a>
-                </div>
               </div>
             </div>
           </div>
@@ -179,6 +88,59 @@
       function test(){
         console.log($(this).parent());
       }
+
+      $(document).ready(function() {
+        let data2Server = {
+          getProductData: 1
+        }
+        $.ajax({
+          type: "POST",
+          url: "api.php",
+          data: data2Server,
+          dataType: "json"
+        }).then(function(dataFromServer) {
+          console.log(dataFromServer);
+          for(let oneData of dataFromServer) {
+            let oneRowProduct = $("<div></div>").addClass("row");
+            let imgDiv = $("<div></div>").addClass("col-5").append($("<img>").addClass("img-thumbnail").prop("src", ""));
+            let productDiv = $("<div></div>").addClass("col-5")
+            .append($("<h6></h6>").append("商品名稱："))
+            .append($("<p></p>").append(oneData["productName"]))
+            .append($("<h6></h6>").append("商品介紹："))
+            .append($("<p></p>").append(oneData["description"]));
+            let buyDiv = $("<div></div>").addClass("col-2")
+            .append($("<h6></h6>").append("剩餘數量"))
+            .append($("<p></p>").append(oneData["inStock"]))
+            .append($("<h6></h6>").append("購買數量"))
+            .append($("<input>").addClass("form-control").prop("type", "number").prop("value", 1).prop("min", 1).prop("id", "product" + oneData["productId"]))
+            .append($("<button></button>").addClass("btn btn-outline-primary").text("加入購物車").prop("value", oneData["productId"]));
+            oneRowProduct.append(imgDiv).append(productDiv).append(buyDiv);            
+            if(oneData["productType"] == 1) {
+              $("#v-pills-eBooks").append(oneRowProduct);
+            } else if(oneData["productType"] == 2) {
+              // v-pills-tcBooks
+              $("#v-pills-tcBooks").append(oneRowProduct);
+            } else if(oneData["productType"] == 3) {
+              // v-pills-scBooks
+              $("#v-pills-scBooks").append(oneRowProduct);
+            } else if(oneData["productType"] == 4) {
+              // v-pills-foreignBooks
+              $("#v-pills-foreignBooks").append(oneRowProduct);
+            } else if(oneData["productType"] == 5) {
+              // v-pills-magazine
+              $("#v-pills-magazine").append(oneRowProduct);
+            } else if(oneData["productType"] == 6) {
+              // v-pills-comics
+              $("#v-pills-comics").append(oneRowProduct);
+            } else if(oneData["productType"] == 7) {
+              // v-pills-stationery
+              $("#v-pills-stationery").append(oneRowProduct);
+            }
+          }
+        }).catch(function(e) {
+          console.log(e);
+        });
+      });
     </script>
 </body>
 </html>

@@ -20,7 +20,7 @@
 <body>
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <a class="navbar-brand" href="http://localhost:8888/PID_Assignment/">購物網站</a>
+            <a class="navbar-brand" href="index.php">購物網站</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
@@ -171,7 +171,7 @@
                     productText.append($("<h6></h6>").append("商品介紹：")).append($("<p></p>").append(dataFromServer[index]["description"]));
                     productText.append($("<h6></h6>").append("價格：")).append($("<p></p>").append(dataFromServer[index]["price"]));
                     textDiv.append(productText);
-                    buyText.append("<h5>購買數量</h5>").append
+                    buyText.append("<h6>購買數量</h6>").append
                     buyText.append($("<p></p>").append(`<input class="form-control" type="number" min="0" onchange="countAlert($(this));" value="${dataFromServer[index]["qty"]}" data-productid=${dataFromServer[index]["productId"]}>`))
                     .append(`<button type="button" class="btn btn-outline-primary" value="${dataFromServer[index]["productId"]}" onclick="deleteCartProduct($(this));">刪除</button>`);
                     buyDiv.append(buyText);
