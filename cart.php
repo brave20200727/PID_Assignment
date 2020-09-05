@@ -53,50 +53,95 @@
         </nav>
         <div style="margin-top: 20px;">
             <h3>購物車列表</h5>
-            <div class="card" id="cartList">
-                <div class="row">
-                    <div class="col-4">
-                        <img src="img/filip-baotic-FF8Kqb86V38-unsplash.jpg" class="card-img">
-                    </div>
-                    <div class="col-6">
-                        <div class="card-body">
-                            <h6>商品名稱：</h6>
-                            <p>Apple Watch圖片</p>
-                            <h6>商品介紹</h6>
-                            <p>這就只是一張Apple watch的圖片而已</p>
-                            <h6>價格：</h5>
-                            <p>NT$81000</p>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="card-body">
-                            <h5>購買數量</h5>
-                            <p><input class="form-control" type="number" min="0" onchange="countAlert($(this));" value="1"></p>
-                            <button type="button" class="btn btn-outline-primary" value="1" onclick="showModal($(this));">刪除</button>    
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div style="margin-top: 20px; background-color: lightgray; border-radius: 5px;" id="summary">
-                共 1 項商品，數量 1 個，總金額NT$ 81000 元
-            </div>                            
+            <div class="card" id="cartList"></div>
+            <div style="margin-top: 20px; background-color: lightgray; border-radius: 5px;" id="summary"></div>                            
         </div>
-        <div id="test"></div>
+        <div style="margin-top: 20px;" class="float-right">
+        <button class="btn btn-outline-primary" type="button" id="buyButton" onclick="buyCartProduct()">確定購買</button>
+        <button class="btn btn-outline-primary" type="button" id="clearCartButton" onclick="deleteAllCart()">清空購物車</button>
+        </div>
     </div>
     <script>
         function countAlert(parameter) {
             if(parameter.prop("value") == 0){
-                alert("已將商品中購物車中移除！");
-                $("#cartList").empty();
+                alert("已幫您從購物車移除！");
+                let data2Server = {
+                    deleteCartProduct: 1,
+                    productId: parameter.data("productid")
+                }
+                console.log(data2Server);
+                $.ajax({
+                    type: "POST",
+                    url: "api.php",
+                    data: data2Server
+                }).then(function(dataFromServer) {
+                    console.log(dataFromServer);
+                    $(location).prop("href", "cart.php");
+                }).catch(function(e) {
+                    console.log(e)
+                })
             }
             else if(parameter.prop("value") < 0) {
                 alert("數量不可為負！");
             }
         }
-        function showModal(parameter) {
-            alert(parameter.prop("value"));
+        function deleteCartProduct(parameter) {
+            alert("已幫您從購物車移除！");
+            let data2Server = {
+                deleteCartProduct: 1,
+                productId: parameter.prop("value")
+            }
+            console.log(data2Server);
+            $.ajax({
+                type: "POST",
+                url: "api.php",
+                data: data2Server
+            }).then(function(dataFromServer) {
+                console.log(dataFromServer);
+                $(location).prop("href", "cart.php");
+            }).catch(function(e) {
+                console.log(e)
+            })
         }
-
+        function buyCartProduct() {
+            let data2Server = {
+                buyCartProduct: 1,
+            }
+            $.ajax({
+                type: "POST",
+                url: "api.php",
+                data: data2Server,
+                dataType: 'json'
+            }).then(function(dataFromServer) {
+                console.log(dataFromServer);
+                if(dataFromServer["errorCode"] == 666) {
+                    alert("購買完成，轉跳至首頁！");
+                    $(location).prop("href", "index.php");                    
+                }
+            }).catch(function(e) {
+                console.log(e);
+            })
+        }
+        function deleteAllCart() {
+            let data2Server = {
+                deleteAllCart: 1,
+            }
+            $.ajax({
+                type: "POST",
+                url: "api.php",
+                data: data2Server,
+                dataType: 'json'
+            }).then(function(dataFromServer) {
+                console.log(dataFromServer);
+                if(dataFromServer["errorCode"] == 666) {
+                    alert("購物車已清空！");
+                    $(location).prop("href", "cart.php");                    
+                }
+            }).catch(function(e) {
+                console.log(e);
+            })
+        }
+            
         $(document).ready(function() {
             let data2Server = {
                 getCart: 1
@@ -108,14 +153,35 @@
                 dataType: "json"
             }).then(function(dataFromServer) {
                 console.log(dataFromServer);
-                let productImg = $("<img>").addClass("card-img");
-                let imgDiv = $("<div></div>").addClass("col-4").append(productImg);
-                let productText = $("<div></div>").addClass("card-body");
-                productText.append($("<h6></h6>").append("商品名稱：")).append($("<h6></h6>").append(dataFromServer[0]["productName"]));
-                productText.append($("<h6></h6>").append("商品介紹：")).append($("<h6></h6>").append(dataFromServer[0]["description"]));
-                productText.append($("<h6></h6>").append("價格：")).append($("<h6></h6>").append(dataFromServer[0]["price"]));
-                let textDiv = $("<div></div>").addClass("col-6").append(productText);
-                $("#test").append(textDiv);
+                let productCount = 0;
+                let number = 0;
+                let totalMoney = 0;                
+                for(let index in dataFromServer) {
+                    productCount += 1;
+                    number += parseInt(dataFromServer[index]["qty"]);
+                    totalMoney += parseInt(dataFromServer[index]["price"]) * parseInt(dataFromServer[index]["qty"]);
+                    let productImg = $("<img>").addClass("card-img");
+                    let imgDiv = $("<div></div>").addClass("col-4").append(productImg);
+                    let productText = $("<div></div>").addClass("card-body");
+                    let textDiv = $("<div></div>").addClass("col-6");
+                    let buyText = $("<div></div>").addClass("card-body");
+                    let buyDiv = $("<div></div>").addClass("col-2");
+                    productImg.prop("src", dataFromServer[index]["productPic"])
+                    productText.append($("<h6></h6>").append("商品名稱：")).append($("<p></p>").append(dataFromServer[index]["productName"]));
+                    productText.append($("<h6></h6>").append("商品介紹：")).append($("<p></p>").append(dataFromServer[index]["description"]));
+                    productText.append($("<h6></h6>").append("價格：")).append($("<p></p>").append(dataFromServer[index]["price"]));
+                    textDiv.append(productText);
+                    buyText.append("<h5>購買數量</h5>").append
+                    buyText.append($("<p></p>").append(`<input class="form-control" type="number" min="0" onchange="countAlert($(this));" value="${dataFromServer[index]["qty"]}" data-productid=${dataFromServer[index]["productId"]}>`))
+                    .append(`<button type="button" class="btn btn-outline-primary" value="${dataFromServer[index]["productId"]}" onclick="deleteCartProduct($(this));">刪除</button>`);
+                    buyDiv.append(buyText);
+                    let oneRowProduct = $("<div></div>").addClass("row");
+                    oneRowProduct.append(imgDiv).append(textDiv).append(buyDiv);
+                    $("#cartList").append(oneRowProduct);
+                }
+
+                $("#summary").append(`共 ${productCount} 項商品，數量 ${number} 個，總金額NT$ ${totalMoney} 元`)
+                
             }).catch(function(e) {
                 console.log(e);
             });

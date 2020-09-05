@@ -132,4 +132,60 @@
         }
         echo json_encode($cartItems);
     }
+    else if(isset($_POST["deleteCartProduct"])) {
+        $userName = $_SESSION["userName"];
+        $productId = $_POST["productId"];
+        $sqlCommand = <<< multi
+            DELETE FROM cart WHERE userId = (SELECT userId FROM users WHERE userName = '$userName') AND productId = $productId
+        multi;
+        mysqli_query($dbLink, $sqlCommand);
+        echo '{"errorCode": 666}';
+    }
+    else if(isset($_POST["buyCartProduct"])) {
+        // var_dump($_POST);
+        $userName = $_SESSION["userName"];
+        $sqlCommand = <<< multi
+            SELECT * FROM cart WHERE userId = (SELECT userId FROM users WHERE userName = '$userName')
+        multi;
+        $result = mysqli_query($dbLink, $sqlCommand);
+        $rowNum = mysqli_num_rows($result);
+        if($rowNum == 0) {
+            echo '{"errorCode": 1}';
+            return;
+        }else {
+            while($row = mysqli_fetch_assoc($result)) {
+                $allProduct[] = $row;
+            }
+            $sqlCommand = <<< multi
+                INSERT INTO orders(userId, shippingStatus) VALUES ((SELECT userId FROM users WHERE userName = '$userName'), 1);
+                SELECT orderId FROM orders ORDER BY orderId DESC LIMIT 0,1;
+            multi;
+            mysqli_multi_query($dbLink, $sqlCommand);
+            mysqli_next_result($dbLink);
+            $result = mysqli_store_result($dbLink);
+            $row = mysqli_fetch_assoc($result);
+            $orderId = $row["orderId"];   
+            $sqlCommand = "INSERT INTO orderDetails(orderId, productId, qty) VALUES";
+            for($i = 0; $i < count($allProduct); $i++) {
+                $productId = $allProduct[$i]["productId"];
+                $qty = $allProduct[$i]["qty"];
+                if($i != 0) {
+                    $sqlCommand .= ', ';
+                }
+                $sqlCommand .= "($orderId, $productId, $qty)";                
+            }
+            $sqlCommand .= ";DELETE FROM cart WHERE userId = (SELECT userId FROM users WHERE userName = '$userName');";
+            mysqli_multi_query($dbLink, $sqlCommand);
+            echo '{"errorCode": 666}';
+        }
+
+    }
+    else if(isset($_POST["deleteAllCart"])) {
+        $userName = $_SESSION["userName"];
+        $sqlCommand = <<< multi
+            DELETE FROM cart WHERE userId = (SELECT userId FROM users WHERE userName = '$userName')
+        multi;
+        mysqli_query($dbLink, $sqlCommand);
+        echo '{"errorCode": 666}';
+    }
 ?>
