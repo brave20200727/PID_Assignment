@@ -16,6 +16,14 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Current Database: `PID_Assignment`
+--
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `PID_Assignment` /*!40100 DEFAULT CHARACTER SET utf8 */;
+
+USE `PID_Assignment`;
+
+--
 -- Table structure for table `cart`
 --
 
@@ -183,4 +191,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-07 17:44:20
+-- Dump completed on 2020-09-07 17:45:42
