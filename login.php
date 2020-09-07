@@ -108,6 +108,8 @@
                 alert("這個使用者名稱還沒註冊過喔！");
               } else if(dataFromServer["errorCode"] == 2) {
                 alert("密碼輸入錯誤！");
+              } else if(dataFromServer["errorCode"] == 3) {
+                alert("此使用者已被禁用，請聯絡管理者！")
               }
             }).catch(function(e) {
               console.log(e);

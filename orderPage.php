@@ -5,6 +5,7 @@
     $userType = $_SESSION["userType"];
   } else {
     $isLogin = false;
+    header("Location: login.php");
   }
 ?>
 <!DOCTYPE html>
@@ -52,7 +53,8 @@
             </div>
         </nav>
         <div style="margin-top: 20px;">
-            <div class="accordion" id="orderAccordion"></div>            
+            <div class="accordion" id="orderAccordion"></div>
+            <div id="message"></div>
         </div>
     </div>
     
@@ -106,6 +108,9 @@
                   let oneCard = $("<div class='card'></div>").append(oneOrderHeading).append(oneCollapse);
                   $("#orderAccordion").append(oneCard);
                 }
+              }
+              else {
+                $("#message").html("您沒有訂單喔！");
               }
             }).catch(function(e) {
                 console.log(e);

@@ -49,6 +49,10 @@
             if($userPassword == $row["userPassword"]) {
                 $_SESSION["userName"] = $userName;
                 $_SESSION["userType"] = $row["userType"];
+                if($row["userStatus"] == 2) {
+                    echo '{"errorCode": 3}';
+                    return;
+                }
                 echo '{"errorCode": 666}';
             }
             else {
@@ -296,5 +300,14 @@
             $returnData["users"] = $users;
             echo json_encode($returnData);
         }
+    }
+    else if(isset($_POST["userBan"])) {
+        $userStatus = $_POST["userStatus"];
+        $userId = $_POST["userId"];
+        $sqlCommand = <<< multi
+            UPDATE users SET userStatus = $userStatus WHERE userId = $userId
+        multi;
+        mysqli_query($dbLink, $sqlCommand);
+        echo '{"errorCode": 666}';
     }
 ?>

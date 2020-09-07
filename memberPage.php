@@ -6,6 +6,7 @@
     $userName = $_SESSION["userName"];
   } else {
     $isLogin = false;
+    header("Location: login.php");
   }
 ?>
 <!DOCTYPE html>

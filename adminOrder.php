@@ -5,6 +5,7 @@
     $userType = $_SESSION["userType"];
   } else {
     $isLogin = false;
+    header("Location: login.php");
   }
 ?>
 <!DOCTYPE html>
@@ -66,6 +67,7 @@
             </table>
         </div>
         <div class="accordion" id="orderAccordion"></div>
+        <div id="message"></div>
     </div>
     <script>
         $(document).ready(function() {
@@ -101,6 +103,7 @@
               }).then(function(dataFromServer) {
                   console.log(dataFromServer);
                   $("#orderAccordion").empty();
+                  $("#message").empty();
                   if(dataFromServer["errorCode"] == 666) {
                     for(let i = 0; i < dataFromServer["orders"].length; i++) {
                       let oneOrderHead = '<thead><tr><th scope="col">商品名稱</th><th scope="col">單價</th><th scope="col">購買數量</th><th scope="col">小計</th></tr></thead>'
@@ -143,6 +146,9 @@
                       let oneCard = $("<div class='card'></div>").append(oneOrderHeading).append(oneCollapse);
                       $("#orderAccordion").append(oneCard);
                     }
+                  }
+                  else {
+                    $("#message").html("此使用者沒有訂單！");
                   }
               }).catch(function(e) {
                   console.log(e);

@@ -5,6 +5,7 @@
     $userType = $_SESSION["userType"];
   } else {
     $isLogin = false;
+    header("Location: login.php");
   }
 ?>
 <!DOCTYPE html>
@@ -56,13 +57,78 @@
                 <div class="card-header">
                     使用者列表
                 </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">使用者一號<button class="btn btn-outline-success float-right" value="brave20200727" onclick="console.log($(this).prop('value'));">啟用</button><button class="btn btn-outline-danger float-right">禁用</button></li>
-                    <li class="list-group-item">使用者二號<button class="btn btn-outline-success float-right">啟用</button><button class="btn btn-outline-danger float-right">禁用</button></li>
-                    <li class="list-group-item">使用者三號<button class="btn btn-outline-success float-right">啟用</button><button class="btn btn-outline-danger float-right">禁用</button></li>
-                </ul> 
+                <ul class="list-group list-group-flush" id="userList"></ul> 
             </div>
         </div>        
     </div>
+    
+    <script>
+      $(document).ready(function() {
+        let data2Server = {
+          getUserId: 1
+        }
+        $.ajax({
+          type: "POST",
+          url: "api.php",
+          data: data2Server,
+          dataType: "json"
+        }).then(function(dataFromServer) {
+          console.log(dataFromServer);
+          $("#userList").empty();
+          for(let i =  1; i < dataFromServer["users"].length; i++) {
+            let activeButton = $("<button></button>").on("click", function() {
+              console.log($(this).prop('value'));
+              let data2Server = {
+                userBan: 1,
+                userStatus: 1,
+                userId: $(this).prop('value')
+              }
+              $.ajax({
+                type: "POST",
+                url: "api.php",
+                data: data2Server,
+                dataType: "json"
+              }).then(function(dataFromServer) {
+                console.log(dataFromServer);
+                $(location).prop("href", "usersPage.php")
+              }).catch(function(e) {
+                console.log(e);
+              });
+            });
+            activeButton.addClass("btn btn-success float-right").prop("value", dataFromServer["users"][i]["userId"]).append("啟用");
+            let banButton = $("<button></button>").on("click", function() {
+              console.log($(this).prop('value'));
+              let data2Server = {
+                userBan: 1,
+                userStatus: 2,
+                userId: $(this).prop('value')
+              }
+              $.ajax({
+                type: "POST",
+                url: "api.php",
+                data: data2Server,
+                dataType: "json"
+              }).then(function(dataFromServer) {
+                console.log(dataFromServer);
+                $(location).prop("href", "usersPage.php")
+              }).catch(function(e) {
+                console.log(e);
+              });
+            });
+            banButton.addClass("btn btn-danger float-right").prop("value", dataFromServer["users"][i]["userId"]).append("禁用");
+            let user;
+            if(dataFromServer["users"][i]["userStatus"] == 1) {
+              user = $("<li></li>").addClass("list-group-item").append(dataFromServer["users"][i]["userName"]).append(banButton);
+            }
+            else {
+              user = $("<li></li>").addClass("list-group-item").append(dataFromServer["users"][i]["userName"]).append(activeButton);
+            }
+            $("#userList").append(user);
+          }
+        }).catch(function(e) {
+          console.log(e);
+        });
+      });
+    </script>
 </body>
 </html>

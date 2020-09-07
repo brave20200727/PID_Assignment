@@ -5,6 +5,7 @@
     $userType = $_SESSION["userType"];
   } else {
     $isLogin = false;
+    header("Location: login.php");
   }
 ?>
 <!DOCTYPE html>
