@@ -317,6 +317,13 @@
     else if(isset($_POST["deleteProduct"])) {
         $productId = $_POST["productId"];
         $sqlCommand = <<< multi
+            SELECT productPic FROM products WHERE productId = $productId
+        multi;
+        $result = mysqli_query($dbLink, $sqlCommand);
+        $row = mysqli_fetch_assoc($result);
+        $pictureName = $row["productPic"];
+        unlink($pictureName);
+        $sqlCommand = <<< multi
             DELETE FROM products WHERE productId = $productId
         multi;
         mysqli_query($dbLink, $sqlCommand);

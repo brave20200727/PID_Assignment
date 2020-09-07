@@ -106,27 +106,28 @@
             </ul>
             </div>
         </nav>
-        <div style="margin-top: 20px;" id="productList">
+        <div style="margin-top: 20px;">
             <div class="card">
                 <div class="card-header">
                     商品列表
                     <button class="btn btn-outline-primary float-right" id="newItem">新增商品</button>
                 </div>
-                <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">商品名稱</th>
-                        <th scope="col">價格</th>
-                        <th scope="col">庫存</th>
-                        <th scope="col">操作</th>
-                      </tr>
-                    </thead>
-                    <tbody id="productTableBody"></tbody>
-                  </table>                
+                <table class="table" id="productList">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">商品名稱</th>
+                      <th scope="col">價格</th>
+                      <th scope="col">庫存</th>
+                      <th scope="col">操作</th>
+                    </tr>
+                  </thead>
+                  <tbody id="productTableBody"></tbody>
+                </table>
+                <div id="message"></div>                  
             </div>
         </div>
-        <div id="message"></div>        
+              
     </div>
     <script>
         $(document).ready(function() {
