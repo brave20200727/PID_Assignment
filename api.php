@@ -1,7 +1,7 @@
 <?php
     session_start();
-    $dbLink = mysqli_connect("localhost", "root", "root", "PID_Assignment", 8889) or die(mysqli_connect_error());
-    // $dbLink = mysqli_connect("localhost", "root", "", "PID_Assignment") or die(mysqli_connect_error());
+    // $dbLink = mysqli_connect("localhost", "root", "root", "PID_Assignment", 8889) or die(mysqli_connect_error());
+    $dbLink = mysqli_connect("localhost", "root", "", "PID_Assignment") or die(mysqli_connect_error());
     mysqli_query($dbLink, "set names utf8");
 
     if(isset($_POST["signupButton"])) {
@@ -193,6 +193,15 @@
     else if(isset($_POST["buyCartProduct"])) {
         // var_dump($_POST);
         $userName = $_SESSION["userName"];
+        $sqlCommand = <<< multi
+            SELECT * FROM users WHERE userName = '$userName'
+        multi;
+        $result = mysqli_query($dbLink, $sqlCommand);
+        $row = mysqli_fetch_assoc($result);
+        if(is_null($row["address"])) {
+            echo '{"errorCode": 3}';
+            return;
+        }
         $sqlCommand = <<< multi
             SELECT * FROM cart WHERE userId = (SELECT userId FROM users WHERE userName = '$userName')
         multi;
