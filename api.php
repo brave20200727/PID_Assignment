@@ -1,9 +1,4 @@
 <?php
-    // https://huang2387.pixnet.net/blog/post/301541795-%E3%80%90%E7%B6%93%E9%A9%97%E3%80%91php-%E6%AA%94%E6%A1%88%E4%B8%8A%E5%82%B3-%E6%AD%A5%E9%A9%9F%E6%95%99%E5%AD%B8
-    // var_dump($_POST);
-    // var_dump($_FILES);
-    // move_uploaded_file($_FILES["productPicture"]["tmp_name"], "img/pic1.jpg");
-
     session_start();
     $dbLink = mysqli_connect("localhost", "root", "root", "PID_Assignment", 8889) or die(mysqli_connect_error());
     // $dbLink = mysqli_connect("localhost", "root", "", "PID_Assignment") or die(mysqli_connect_error());
@@ -257,6 +252,15 @@
             echo '{"errorCode": 1}';
         }
     }
+    else if(isset($_POST["getOneProduct"])) {
+        $productId = $_POST["productId"];
+        $sqlCommand = <<< multi
+            SELECT * FROM products WHERE productId = $productId
+        multi;
+        $result = mysqli_query($dbLink, $sqlCommand);
+        $row = mysqli_fetch_assoc($result);
+        echo json_encode($row);
+    }
     else if(isset($_POST["addIntoCart"])) {
         if(!isset($_SESSION["userName"])) {
             echo '{"errorCode": 1}';
@@ -306,6 +310,71 @@
         $userId = $_POST["userId"];
         $sqlCommand = <<< multi
             UPDATE users SET userStatus = $userStatus WHERE userId = $userId
+        multi;
+        mysqli_query($dbLink, $sqlCommand);
+        echo '{"errorCode": 666}';
+    }
+    else if(isset($_POST["deleteProduct"])) {
+        $productId = $_POST["productId"];
+        $sqlCommand = <<< multi
+            DELETE FROM products WHERE productId = $productId
+        multi;
+        mysqli_query($dbLink, $sqlCommand);
+        echo '{"errorCode": 666}';
+    }
+    else if(isset($_POST["addProduct"])) {
+        // https://huang2387.pixnet.net/blog/post/301541795-%E3%80%90%E7%B6%93%E9%A9%97%E3%80%91php-%E6%AA%94%E6%A1%88%E4%B8%8A%E5%82%B3-%E6%AD%A5%E9%A9%9F%E6%95%99%E5%AD%B8
+        // var_dump($_POST);
+        // var_dump($_FILES);
+        // move_uploaded_file($_FILES["productPicture"]["tmp_name"], "img/pic1.jpg");
+        $productName = $_POST["productName"];
+        $description = $_POST["description"];
+        $productType = $_POST["productType"];
+        $price = $_POST["price"];
+        $inStock = $_POST["inStock"];
+        $sqlCommand = <<< multi
+            INSERT INTO products (productName, description, productType, price, inStock)
+            VALUES ('$productName', '$description', $productType, $price, $inStock)
+        multi;
+        mysqli_query($dbLink, $sqlCommand);
+        $sqlCommand = <<< multi
+            SELECT productId FROM products ORDER BY productId DESC LIMIT 0,1
+        multi;
+        $result = mysqli_query($dbLink, $sqlCommand);
+        $row = mysqli_fetch_assoc($result);
+        $productId = $row["productId"];
+        if($_FILES["productPicture"]["type"] == "image/jpeg") {
+            move_uploaded_file($_FILES["productPicture"]["tmp_name"], "img/pic$productId.jpg");
+            $sqlCommand = <<< multi
+                UPDATE products SET productPic = 'img/pic$productId.jpg' WHERE productId = $productId
+            multi;
+        }
+        else if($_FILES["productPicture"]["type"] == "image/png") {
+            move_uploaded_file($_FILES["productPicture"]["tmp_name"], "img/pic$productId.png");
+            $sqlCommand = <<< multi
+                UPDATE products SET productPic = 'img/pic$productId.png' WHERE productId = $productId
+            multi;
+        }
+        mysqli_query($dbLink, $sqlCommand);
+        echo '{"errorCode": 666}';
+    }
+    else if(isset($_POST["updateProduct"])) {
+        $productId = $_POST["productId"];
+        $productName = $_POST["productName"];
+        $description = $_POST["description"];
+        $productType = $_POST["productType"];
+        $price = $_POST["price"];
+        $inStock = $_POST["inStock"];
+        if($_FILES["productPicture"]["type"] == "image/jpeg") {
+            unlink("img/pic$productId.jpg");
+            move_uploaded_file($_FILES["productPicture"]["tmp_name"], "img/pic$productId.jpg");
+        }
+        else if($_FILES["productPicture"]["type"] == "image/png") {
+            unlink("img/pic$productId.png");            
+            move_uploaded_file($_FILES["productPicture"]["tmp_name"], "img/pic$productId.png");
+        }
+        $sqlCommand = <<< multi
+            UPDATE products SET productName = '$productName', description = '$description', productType = $productType, price = $price, inStock = $inStock WHERE productId = $productId
         multi;
         mysqli_query($dbLink, $sqlCommand);
         echo '{"errorCode": 666}';

@@ -30,8 +30,26 @@
                 <form>
                     <div class="form-group">
                         <label for="">商品名稱</label>
-                        <input class="form-control" type="text" id="productName" name="productName">
+                        <input class="form-control" type="text" id="productName">
                     </div>
+                    <div class="form-group">
+                        <label for="">商品介紹</label>
+                        <!-- <input class="form-control" type="text" id="productName" name="productName"> -->
+                        <textarea class="form-control" id="description" rows="5"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="">商品類別</label>
+                        <!-- <input class="form-control" type="text" id="productType"> -->
+                        <select class="form-control" id="productType">
+                          <option value="1">電子書</option>
+                          <option value="2">繁體中文書</option>
+                          <option value="3">簡體中文書</option>
+                          <option value="4">外文書</option>
+                          <option value="5">雜誌</option>
+                          <option value="6">漫畫</option>
+                          <option value="7">文具用品</option>
+                        </select>
+                    </div>                   
                     <div class="form-group">
                         <label for="">價格</label>
                         <input class="form-control" type="text" id="price" name="price">
@@ -43,6 +61,7 @@
                     <div class="form-group">
                         <label for="">商品圖片</label>
                         <input class="form-control-file" type="file" id="productPicture" name="productPicture">
+                        <img src="" alt="尚未上傳圖片喔" id="productImg" width="400px">
                     </div>                    
                 </form>
             </div>
@@ -87,7 +106,7 @@
             </ul>
             </div>
         </nav>
-        <div style="margin-top: 20px;">
+        <div style="margin-top: 20px;" id="productList">
             <div class="card">
                 <div class="card-header">
                     商品列表
@@ -100,68 +119,164 @@
                         <th scope="col">商品名稱</th>
                         <th scope="col">價格</th>
                         <th scope="col">庫存</th>
+                        <th scope="col">操作</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>商品一號</td>
-                        <td>
-                            81000
-                        </td>
-                        <td>
-                            20
-                            <span class="float-right" style="margin-right: 5px;"><button class="btn btn-outline-success" value="1" onclick='$("#editModal").modal({backdrop: "static"});'>編輯</button></span>
-                            <span class="float-right"><button class="btn btn-outline-danger" value="1" onclick="console.log($(this).prop('value'));">刪除</button></span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>商品二號</td>
-                        <td>
-                            5487
-                        </td>
-                        <td>
-                            10
-                            <span class="float-right" style="margin-right: 5px;"><button class="btn btn-outline-success" value="2" onclick='$("#editModal").modal({backdrop: "static"});'>編輯</button></span>
-                            <span class="float-right"><button class="btn btn-outline-danger" value="2" onclick="console.log($(this).prop('value'));">刪除</button></span>                            
-                        </td>
-                      </tr>                      
-                    </tbody>
+                    <tbody id="productTableBody"></tbody>
                   </table>                
             </div>
-        </div>        
+        </div>
+        <div id="message"></div>        
     </div>
     <script>
         $(document).ready(function() {
-            $("#newItem").on("click", function() {
-                $("#editModal").modal({backdrop: "static"});
-            })
+          let currentProductIndex = 0;
+          let data2Server = {
+            getProductData: 1
+          }
+          $.ajax({
+            type: "POST",
+            url: "api.php",
+            data: data2Server,
+            dataType: "json"
+          }).then(function(dataFromServer) {
+            console.log(dataFromServer);
+            if(dataFromServer["errorCode"] == 1) {
+              $("#productList").hide();
+              $("#message").append("目前還沒有任何商品喔！");
+            }
+            else {
+              for(let oneData of dataFromServer) {
+                let productId = $("<td></td>").append(oneData["productId"]);
+                let productName = $("<td></td>").append(oneData["productName"]);
+                let price = $("<td></td>").append(oneData["price"]);
+                let inStock = $("<td></td>").append(oneData["inStock"]);
+                let editButton = $("<button></button>").addClass("btn btn-outline-success").prop("value", oneData["productId"]).append("編輯");
+                editButton.on("click", function() {
+                  currentProductIndex = oneData["productId"];
+                  $("#editModal").modal({backdrop: "static"});
+                  let data2Server2 = {
+                    getOneProduct: 1,
+                    productId: $(this).prop("value")
+                  }
+                  console.log(data2Server2);
+                  $.ajax({
+                    type: "POST",
+                    url: "api.php",
+                    data: data2Server2,
+                    dataType: "json"
+                  }).then(function(dataFromServer2) {
+                    console.log(dataFromServer2);
+                    $("#productName").prop("value", dataFromServer2["productName"]);
+                    $("#description").prop("value", dataFromServer2["description"]);
+                    $("#productType").val(dataFromServer2["productType"]).prop("selected", true);
+                    $("#productImg").prop("src", dataFromServer2["productPic"])
+                    $("#price").prop("value", dataFromServer2["price"]);
+                    $("#inStock").prop("value", dataFromServer2["inStock"]);
+                  }).catch(function(e2) {
+                    console.log(e2);
+                  });
+                });
+                let deleteButton = $("<button></button>").addClass("btn btn-outline-danger").prop("value", oneData["productId"]).append("刪除");
+                deleteButton.on("click", function() {
+                  let data2Server2 = {
+                    deleteProduct: 1,
+                    productId: $(this).prop("value")
+                  } 
+                  $.ajax({
+                      type: "POST",
+                      url: "api.php",
+                      data: data2Server2,
+                      dataType: "json"
+                  }).then(function(dataFromServer2) {
+                    console.log(dataFromServer2);
+                    if(dataFromServer2["errorCode"] == 666) {
+                      alert("刪除成功喔！");
+                      $(location).prop("href", "productPage.php");
+                    }
+                  }).catch(function(e2) {
+                    console.log(e2);
+                  });
+                });
+                let operate = $("<span></span>").append(editButton).append(deleteButton);
+                let oneProduct = $("<tr></tr>").append(productId).append(productName).append(price).append(inStock).append($("<td></td>").append(operate));
+                $("#productTableBody").append(oneProduct);
+              }     
+            }
+          }).catch(function(e) {
+            console.log(e);
+          });
 
-            $("#okButton").on("click", function() {
-                // var reader = new FileReader;
-                // reader.onload = function(e) {
-                //     $('#demo').prop('src', e.target.result);
-                //     console.log(e);
-                // };
-                // reader.readAsDataURL(data2Server.productPicture);
+          $("#newItem").on("click", function() {
+              $("#editModal").modal({backdrop: "static"});
+              currentProductIndex = 0;
+              $("#productName").prop("value", "");
+              $("#description").prop("value", "");
+              $("#productType").val("1").prop("selected", true);
+              $("#productImg").prop("src", "")
+              $("#price").prop("value", "");
+              $("#inStock").prop("value", "")
+              $("#productType").val('1').prop("selected", true);
+          })
+
+          $("#okButton").on("click", function() {
+              if(currentProductIndex < 1) {
                 var data2Server = new FormData();
+                data2Server.append('addProduct', 1);
                 data2Server.append('productName', $("#productName").prop("value"));
+                data2Server.append("description",  $("#description").prop("value"));
+                data2Server.append("productType", $("#productType").prop("value"));
                 data2Server.append('price', $("#price").prop("value"));
                 data2Server.append('inStock', $("#inStock").prop("value"));
                 data2Server.append('productPicture', $('#productPicture')[0].files[0]);
                 $.ajax({
-                    type:"POST",
-                    url:"api.php",
-                    data: data2Server,  
-                    contentType: false,
-                    processData: false
+                  type:"POST",
+                  url:"api.php",
+                  data: data2Server, 
+                  dataType: "json", 
+                  contentType: false,
+                  processData: false
                 }).then(function(dataFromServer) {
-                    console.log(dataFromServer);
+                  console.log(dataFromServer);
+                  if(dataFromServer["errorCode"] == 666) {
+                    $("#editModal").modal("hide");
+                    alert("新增成功！");
+                    $(location).prop("href", "productPage.php");
+                  }
                 }).catch(function(e) {
-
+                  console.log(e);
                 })
-            })
+              }
+              else {
+                var data2Server = new FormData();
+                data2Server.append('updateProduct', 1);
+                data2Server.append('productId', currentProductIndex);
+                data2Server.append('productName', $("#productName").prop("value"));
+                data2Server.append("description",  $("#description").prop("value"));
+                data2Server.append("productType", $("#productType").prop("value"));
+                data2Server.append('price', $("#price").prop("value"));
+                data2Server.append('inStock', $("#inStock").prop("value"));
+                data2Server.append('productPicture', $('#productPicture')[0].files[0]);
+                console.log(data2Server);
+                $.ajax({
+                  type:"POST",
+                  url:"api.php",
+                  data: data2Server, 
+                  dataType: "json", 
+                  contentType: false,
+                  processData: false
+                }).then(function(dataFromServer) {
+                  console.log(dataFromServer);
+                  if(dataFromServer["errorCode"] == 666) {
+                    $("#editModal").modal("hide");
+                    alert("修改成功！");
+                    $(location).prop("href", "productPage.php");
+                  }
+                }).catch(function(e) {
+                  console.log(e);
+                })
+              }
+          })
         })
     </script>    
 </body>
