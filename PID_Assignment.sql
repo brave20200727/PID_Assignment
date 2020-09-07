@@ -58,7 +58,7 @@ CREATE TABLE `orderDetails` (
 
 LOCK TABLES `orderDetails` WRITE;
 /*!40000 ALTER TABLE `orderDetails` DISABLE KEYS */;
-INSERT INTO `orderDetails` VALUES (1,1,10),(1,2,10),(1,3,10),(2,1,10),(2,2,10),(2,3,10),(3,1,10),(3,2,10),(3,3,10),(4,1,10),(4,2,10),(4,3,10);
+INSERT INTO `orderDetails` VALUES (1,2,1),(2,1,1);
 /*!40000 ALTER TABLE `orderDetails` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -74,7 +74,7 @@ CREATE TABLE `orders` (
   `userId` int(11) DEFAULT NULL,
   `shippingStatus` int(11) DEFAULT NULL,
   PRIMARY KEY (`orderId`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -83,7 +83,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (1,2,1),(2,2,1),(3,2,1),(4,2,1);
+INSERT INTO `orders` VALUES (1,3,1),(2,2,1);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -127,7 +127,7 @@ CREATE TABLE `products` (
   `price` int(11) DEFAULT NULL,
   `inStock` int(11) DEFAULT NULL,
   PRIMARY KEY (`productId`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -136,7 +136,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (1,'大肌肌維他命1','大肌肌維他命1',NULL,'img/1.jpg',1000,999),(2,'大肌肌維他命2','大肌肌維他命2',NULL,'img/1.jpg',2000,999),(3,'大肌肌維他命3','大肌肌維他命3',NULL,'img/1.jpg',3000,999);
+INSERT INTO `products` VALUES (1,'基隆美景','這就是基隆的美景',1,'img/pic1.jpg',1000,998),(2,'台北美景','這就是台北的美景',2,'img/pic2.jpg',2000,998),(3,'台中美景','這就是台中的美景',3,'img/pic3.jpg',3000,999),(4,'台南的美景','這就是台南的美景',4,'img/pic4.jpg',4000,999),(5,'南投的美景','這就是南投美景',5,'img/pic5.jpg',5000,999),(6,'台東美景','這就是台東的美景',6,'img/pic6.jpg',6000,999),(7,'宜蘭美景','這就是宜蘭的美景',7,'img/pic7.jpg',7000,999);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -183,4 +183,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-05 17:16:01
+-- Dump completed on 2020-09-07 17:44:20
