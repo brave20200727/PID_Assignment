@@ -85,7 +85,25 @@
                 alert("數量不可為負！");
             }
             else {
-                
+                let data2Server = {
+                    qtyChange: 1,
+                    productId: parameter.data("productid"),
+                    qty: parameter.prop("value")
+                }
+                console.log(data2Server);
+                $.ajax({
+                    type: "POST",
+                    url: "api.php",
+                    data: data2Server,
+                    dataType: "json"
+                }).then(function(dataFromServer) {
+                    console.log(dataFromServer);
+                    if(dataFromServer["errorCode"] == 666) {
+                        alert("數量修改成功");
+                    }
+                }).catch(function(e) {
+                    console.log(e)
+                })
             }
         }
         function deleteCartProduct(parameter) {

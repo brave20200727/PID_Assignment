@@ -142,6 +142,16 @@
         mysqli_query($dbLink, $sqlCommand);
         echo '{"errorCode": 666}';
     }
+    else if(isset($_POST["qtyChange"])) {
+        $userName = $_SESSION["userName"];
+        $productId = $_POST["productId"];
+        $qty = $_POST["qty"];
+        $sqlCommand = <<< multi
+            UPDATE cart SET qty = $qty WHERE productId = $productId AND userId = (SELECT userId FROM users WHERE userName = '$userName')
+        multi;
+        mysqli_query($dbLink, $sqlCommand);
+        echo '{"errorCode": 666}';
+    }
     else if(isset($_POST["buyCartProduct"])) {
         // var_dump($_POST);
         $userName = $_SESSION["userName"];
