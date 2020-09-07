@@ -5,8 +5,8 @@
     // move_uploaded_file($_FILES["productPicture"]["tmp_name"], "img/pic1.jpg");
 
     session_start();
-    // $dbLink = mysqli_connect("localhost", "root", "root", "PID_Assignment", 8889) or die(mysqli_connect_error());
-    $dbLink = mysqli_connect("localhost", "root", "", "PID_Assignment") or die(mysqli_connect_error());
+    $dbLink = mysqli_connect("localhost", "root", "root", "PID_Assignment", 8889) or die(mysqli_connect_error());
+    // $dbLink = mysqli_connect("localhost", "root", "", "PID_Assignment") or die(mysqli_connect_error());
     mysqli_query($dbLink, "set names utf8");
 
     if(isset($_POST["signupButton"])) {
@@ -190,7 +190,6 @@
         echo '{"errorCode": 666}';
     }
     else if(isset($_POST["getProductData"])) {
-        $userName = $_SESSION["userName"];
         $sqlCommand = <<< multi
             SELECT * FROM products
         multi;
@@ -204,5 +203,31 @@
         } else {
             echo '{"errorCode": 1}';
         }
+    }
+    else if(isset($_POST["addIntoCart"])) {
+        if(!isset($_SESSION["userName"])) {
+            echo '{"errorCode": 1}';
+            return;
+        }
+        $userName = $_SESSION["userName"];
+        $productId = $_POST['productId'];
+        $qty = $_POST['qty'];
+        $sqlCommand = <<< multi
+            SELECT * FROM cart WHERE productId = $productId AND userId = (SELECT userId FROM users WHERE userName = '$userName')
+        multi;
+        $result = mysqli_query($dbLink, $sqlCommand);
+        $rowNum = mysqli_num_rows($result);
+        if($rowNum != 0) {
+            echo '{"errorCode": 2}';
+            return;
+        }
+        else {
+            $sqlCommand = <<< multi
+                INSERT INTO cart(userId, productId, qty) VALUES ((SELECT userId FROM users WHERE userName = '$userName'), $productId, $qty)
+            multi;
+            mysqli_query($dbLink, $sqlCommand);            
+        }
+        // echo json_encode()
+        echo '{"errorCode": 666}';
     }
 ?>

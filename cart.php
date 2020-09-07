@@ -84,6 +84,9 @@
             else if(parameter.prop("value") < 0) {
                 alert("數量不可為負！");
             }
+            else {
+                
+            }
         }
         function deleteCartProduct(parameter) {
             alert("已幫您從購物車移除！");

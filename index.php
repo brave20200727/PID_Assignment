@@ -81,7 +81,8 @@
               </div>
             </div>
           </div>
-        </div>        
+          <div class="col-9" id="test"></div>
+        </div> 
     </div>
 
     <script>
@@ -102,18 +103,46 @@
           console.log(dataFromServer);
           for(let oneData of dataFromServer) {
             let oneRowProduct = $("<div></div>").addClass("row");
-            let imgDiv = $("<div></div>").addClass("col-5").append($("<img>").addClass("img-thumbnail").prop("src", ""));
+            let imgDiv = $("<div></div>").addClass("col-5").append($("<img>").addClass("img-thumbnail").prop("src", oneData["productPic"]));
             let productDiv = $("<div></div>").addClass("col-5")
             .append($("<h6></h6>").append("商品名稱："))
             .append($("<p></p>").append(oneData["productName"]))
             .append($("<h6></h6>").append("商品介紹："))
             .append($("<p></p>").append(oneData["description"]));
+            let numberId = "product" + oneData["productId"];
+            let aButton = $(`<button data-numberid=${numberId}></button>`).on("click", function() {
+              let data2Server = {
+                addIntoCart: 1,
+                productId: $(this).prop("value"),
+                qty: $(`#${$(this).data("numberid")}`).prop("value")
+              }
+              console.log(data2Server);
+              $.ajax({
+                type: "POST",
+                url: "api.php",
+                data: data2Server,
+                dataType: "json"
+              }).then(function(dataFromServer) {
+                console.log(dataFromServer);
+                if(dataFromServer["errorCode"] == 666) {
+                  alert("加入購物車成功！");
+                }
+                else if(dataFromServer["errorCode"] == 1) {
+                  alert("尚未登入喔！");
+                }
+                else {
+                  alert("此商品購物車中已經有了喔！");
+                }
+              }).catch(function(e) {
+                console.log(e);
+              });
+            });
             let buyDiv = $("<div></div>").addClass("col-2")
             .append($("<h6></h6>").append("剩餘數量"))
             .append($("<p></p>").append(oneData["inStock"]))
             .append($("<h6></h6>").append("購買數量"))
             .append($("<input>").addClass("form-control").prop("type", "number").prop("value", 1).prop("min", 1).prop("id", "product" + oneData["productId"]))
-            .append($("<button></button>").addClass("btn btn-outline-primary").text("加入購物車").prop("value", oneData["productId"]));
+            .append(aButton.addClass("btn btn-outline-primary").text("加入購物車").prop("value", oneData["productId"]));
             oneRowProduct.append(imgDiv).append(productDiv).append(buyDiv);            
             if(oneData["productType"] == 1) {
               $("#v-pills-eBooks").append(oneRowProduct);
