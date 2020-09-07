@@ -102,6 +102,11 @@
             SELECT * FROM orders WHERE userId = (SELECT userId FROM users WHERE userName = '$userName')
         multi;
         $result = mysqli_query($dbLink, $sqlCommand);
+        $rowNum = mysqli_num_rows($result);
+        if($rowNum == 0) {
+            echo '{"errorCode": 1}';
+            return;
+        }
         while($row = mysqli_fetch_assoc($result)) {
             $order[] = $row;
         }
@@ -119,7 +124,41 @@
             $order[$i]["orderDetails"] = $orderDetail;            
         }
         // var_dump($order);
-        echo json_encode($order);
+        $returnData["errorCode"] = 666;
+        $returnData["orders"] = $order;
+        echo json_encode($returnData);
+    }
+    else  if(isset($_POST["getUserOrderByAdmin"])){
+        $userId = $_POST["userId"];
+        $sqlCommand = <<< multi
+            SELECT * FROM orders WHERE userId = $userId
+        multi;
+        $result = mysqli_query($dbLink, $sqlCommand);
+        $rowNum = mysqli_num_rows($result);
+        if($rowNum == 0) {
+            echo '{"errorCode": 1}';
+            return;
+        }
+        while($row = mysqli_fetch_assoc($result)) {
+            $order[] = $row;
+        }
+        // var_dump($order);
+        for($i = 0;$i < count($order); $i++) {
+            $orderId = $order[$i]["orderId"];
+            $sqlCommand = <<< multi
+                SELECT od.orderId, p.productName, p.price, od.qty FROM orderDetails od JOIN products p ON od.productId = p.productId WHERE orderId = $orderId
+            multi;
+            $result = mysqli_query($dbLink, $sqlCommand);
+            $orderDetail= array();
+            while($row = mysqli_fetch_assoc($result)) {
+                $orderDetail[] = $row;
+            }
+            $order[$i]["orderDetails"] = $orderDetail;            
+        }
+        // var_dump($order);
+        $returnData["errorCode"] = 666;
+        $returnData["orders"] = $order;
+        echo json_encode($returnData);        
     }
     else if(isset($_POST["getCart"])) {
         $userName = $_SESSION["userName"];
@@ -239,5 +278,23 @@
         }
         // echo json_encode()
         echo '{"errorCode": 666}';
+    }
+    else if(isset($_POST["getUserId"])) {
+        $sqlCommand = <<< multi
+            SELECT * FROM users;
+        multi;
+        $result = mysqli_query($dbLink, $sqlCommand);
+        $rowNum = mysqli_num_rows($result);
+        if($rowNum <= 0 ) {
+            return;
+        }
+        else {
+            while($row = mysqli_fetch_assoc($result)) {
+                $users[] = $row;
+            }
+            $returnData["errorCode"] = 666;
+            $returnData["users"] = $users;
+            echo json_encode($returnData);
+        }
     }
 ?>
