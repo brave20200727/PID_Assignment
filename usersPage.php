@@ -73,11 +73,9 @@
           data: data2Server,
           dataType: "json"
         }).then(function(dataFromServer) {
-          console.log(dataFromServer);
           $("#userList").empty();
           for(let i =  1; i < dataFromServer["users"].length; i++) {
             let activeButton = $("<button></button>").on("click", function() {
-              console.log($(this).prop('value'));
               let data2Server = {
                 userBan: 1,
                 userStatus: 1,
@@ -89,7 +87,6 @@
                 data: data2Server,
                 dataType: "json"
               }).then(function(dataFromServer) {
-                console.log(dataFromServer);
                 $(location).prop("href", "usersPage.php")
               }).catch(function(e) {
                 console.log(e);
@@ -97,7 +94,6 @@
             });
             activeButton.addClass("btn btn-success float-right").prop("value", dataFromServer["users"][i]["userId"]).append("啟用");
             let banButton = $("<button></button>").on("click", function() {
-              console.log($(this).prop('value'));
               let data2Server = {
                 userBan: 1,
                 userStatus: 2,
@@ -109,7 +105,6 @@
                 data: data2Server,
                 dataType: "json"
               }).then(function(dataFromServer) {
-                console.log(dataFromServer);
                 $(location).prop("href", "usersPage.php")
               }).catch(function(e) {
                 console.log(e);

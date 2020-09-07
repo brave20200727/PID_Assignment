@@ -77,9 +77,6 @@
 
     <script>
         $(document).ready(function() {
-            // $("input[name=gender]").on("change", function(){
-            //     console.log($("input[name=gender]:checked").val());
-            // })
             $("#signupButton").on("click", function() {
                 let data2Server = {
                     userName: $("#userName").prop("value"),
@@ -111,7 +108,6 @@
                         data: data2Server,
                         dataType: "json"
                     }).then(function(dataFromServer) {
-                        // console.log(dataFromServer);
                         if(dataFromServer["errorCode"] == 1) {
                             alert("此使用者名稱已經註冊過了！");
                         }

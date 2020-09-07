@@ -90,7 +90,6 @@
             userPassword: $("#userPassword").prop("value"),
             loginButton: 1
           }
-          // console.log(data2Srever);
           if(data2Srever["userName"] == "" || data2Srever["userPassword"] == "") {
             alert("使用者名稱或是密碼未輸入喔！");
           } else {
@@ -100,7 +99,6 @@
               data: data2Srever,
               dataType: "json"
             }).then(function(dataFromServer) {
-              console.log(dataFromServer);
               if(dataFromServer["errorCode"] == 666) {
                 alert("登入成功喔！");
                 $(location).prop("href", "index.php");

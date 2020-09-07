@@ -118,7 +118,6 @@
                 data: data2Server,
                 dataType: "json"
             }).then(function(dataFromServer) {
-                console.log(dataFromServer);
                 $("#userName").prop("value", dataFromServer["userName"]);
                 $("#birthday").prop("value", dataFromServer["birthday"]);
                 $("#name").prop("value", dataFromServer["name"]);
@@ -142,15 +141,13 @@
                     city: $("#city").prop("value"),
                     address: $("#address").prop("value"),
                     updateUserInfo: 1
-                }      
-                console.log(data2Server);
+                }
                 $.ajax({
                     type: "POST",
                     url: "api.php",
                     data: data2Server,
                     dataType: "json"
                 }).then(function(dataFromServer) {
-                    console.log(dataFromServer);
                     if(dataFromServer["errorCode"] == 666) {
                         alert("資料修改成功！");
                         $(location).prop("href", "memberPage.php");

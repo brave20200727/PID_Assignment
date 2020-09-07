@@ -52,11 +52,11 @@
                     </div>                   
                     <div class="form-group">
                         <label for="">價格</label>
-                        <input class="form-control" type="text" id="price" name="price">
+                        <input class="form-control" type="number" id="price" name="price" min="0">
                     </div>
                     <div class="form-group">
                         <label for="">庫存</label>
-                        <input class="form-control" type="text" id="inStock" id="inStock">
+                        <input class="form-control" type="number" id="inStock" id="inStock" min="0">
                     </div>
                     <div class="form-group">
                         <label for="">商品圖片</label>
@@ -141,13 +141,12 @@
             data: data2Server,
             dataType: "json"
           }).then(function(dataFromServer) {
-            console.log(dataFromServer);
             if(dataFromServer["errorCode"] == 1) {
               $("#productList").hide();
               $("#message").append("目前還沒有任何商品喔！");
             }
             else {
-              for(let oneData of dataFromServer) {
+              for(let oneData of dataFromServer["allProducts"]) {
                 let productId = $("<td></td>").append(oneData["productId"]);
                 let productName = $("<td></td>").append(oneData["productName"]);
                 let price = $("<td></td>").append(oneData["price"]);
@@ -160,14 +159,12 @@
                     getOneProduct: 1,
                     productId: $(this).prop("value")
                   }
-                  console.log(data2Server2);
                   $.ajax({
                     type: "POST",
                     url: "api.php",
                     data: data2Server2,
                     dataType: "json"
                   }).then(function(dataFromServer2) {
-                    console.log(dataFromServer2);
                     $("#productName").prop("value", dataFromServer2["productName"]);
                     $("#description").prop("value", dataFromServer2["description"]);
                     $("#productType").val(dataFromServer2["productType"]).prop("selected", true);
@@ -190,7 +187,6 @@
                       data: data2Server2,
                       dataType: "json"
                   }).then(function(dataFromServer2) {
-                    console.log(dataFromServer2);
                     if(dataFromServer2["errorCode"] == 666) {
                       alert("刪除成功喔！");
                       $(location).prop("href", "productPage.php");
@@ -221,6 +217,12 @@
           })
 
           $("#okButton").on("click", function() {
+            let price = parseInt($("#price").prop("value"));
+            let inStock = parseInt($("#inStock").prop("value"));
+            if(price < 0 || inStock < 0) {
+              alert("價錢與庫存不可為負數");
+            }
+            else {
               if(currentProductIndex < 1) {
                 var data2Server = new FormData();
                 data2Server.append('addProduct', 1);
@@ -238,7 +240,6 @@
                   contentType: false,
                   processData: false
                 }).then(function(dataFromServer) {
-                  console.log(dataFromServer);
                   if(dataFromServer["errorCode"] == 666) {
                     $("#editModal").modal("hide");
                     alert("新增成功！");
@@ -258,7 +259,6 @@
                 data2Server.append('price', $("#price").prop("value"));
                 data2Server.append('inStock', $("#inStock").prop("value"));
                 data2Server.append('productPicture', $('#productPicture')[0].files[0]);
-                console.log(data2Server);
                 $.ajax({
                   type:"POST",
                   url:"api.php",
@@ -267,7 +267,6 @@
                   contentType: false,
                   processData: false
                 }).then(function(dataFromServer) {
-                  console.log(dataFromServer);
                   if(dataFromServer["errorCode"] == 666) {
                     $("#editModal").modal("hide");
                     alert("修改成功！");
@@ -276,7 +275,8 @@
                 }).catch(function(e) {
                   console.log(e);
                 })
-              }
+              }                
+            }
           })
         })
     </script>    

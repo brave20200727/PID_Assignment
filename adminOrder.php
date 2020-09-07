@@ -71,9 +71,6 @@
     </div>
     <script>
         $(document).ready(function() {
-            $("#deleteButton").on("click", function() {
-                console.log($(this).prop("value"));
-            });
             let data2Server =  {
               getUserId: 1
             }
@@ -83,7 +80,6 @@
               data: data2Server,
               dataType: "json"
             }).then(function(dataFromServer) {
-              console.log(dataFromServer);
               for(let i = 1; i < dataFromServer["users"].length; i++) {
                 $("#userSelector").append($("<option></option>").append(dataFromServer["users"][i]["userName"]).prop("value", dataFromServer["users"][i]["userId"]));
               }
@@ -101,7 +97,6 @@
                   data: data2Server,
                   dataType: "json"
               }).then(function(dataFromServer) {
-                  console.log(dataFromServer);
                   $("#orderAccordion").empty();
                   $("#message").empty();
                   if(dataFromServer["errorCode"] == 666) {
@@ -110,7 +105,6 @@
                       let oneOrderTotalNum = 0;
                       let oneOrder = $("<tbody></tbody>");
                       for(let j = 0; j < dataFromServer["orders"][i]["orderDetails"].length; j++) {
-                        console.log(dataFromServer["orders"][i]["orderDetails"][j]);
                         let productName = $("<td></td>").append(dataFromServer["orders"][i]["orderDetails"][j]["productName"]);
                         let price = $("<td></td>").append(dataFromServer["orders"][i]["orderDetails"][j]["price"]);
                         let qty = $("<td></td>").append(dataFromServer["orders"][i]["orderDetails"][j]["qty"]);
@@ -122,7 +116,6 @@
                       let oneOrderTotalNumItem = $("<td></td>").append(oneOrderTotalNum);
                       let oneOrderTotal = $("<tr></tr>").append('<td>總價</td><td></td><td></td>').append(oneOrderTotalNumItem);
                       oneOrder.append(oneOrderTotal);
-                      // console.log(oneOrderTotalNum);
                       let oneTable = $("<table class='table'></table>").append(oneOrderHead).append(oneOrder);
                       let cardBody = $("<div class='card-body'></div>").append(oneTable);
 
@@ -136,11 +129,6 @@
                       } else {
                         shippingButton = '<button class="btn btn-danger float-right" disabled>已取消</button>';
                       }
-                      // if(dataFromServer[i]["shippingStatus"] ==  "1") {
-                      //   cancelButton = $("<button></button>").addClass("btn btn-outline-danger float-right").prop("value", "").append("取消訂單");
-                      // } else {
-                      //   cancelButton = $("<button></button>").addClass("btn btn-outline-danger float-right").prop("value", "").prop("disable", true).append("取消訂單");
-                      // }
                       let headingH2 = $("<h2 class='mb-0'></h2>").append(OrderButton).append(shippingButton);
                       let oneOrderHeading = $(`<div class='card-header' id='heading${i}'></div>`).append(headingH2);
                       let oneCard = $("<div class='card'></div>").append(oneOrderHeading).append(oneCollapse);

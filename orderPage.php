@@ -70,14 +70,12 @@
               data: data2Server,
               dataType: "json"
             }).then(function(dataFromServer) {
-              console.log(dataFromServer);
               if(dataFromServer["errorCode"] == 666) {
                 for(let i = 0; i < dataFromServer["orders"].length; i++) {
                   let oneOrderHead = '<thead><tr><th scope="col">商品名稱</th><th scope="col">單價</th><th scope="col">購買數量</th><th scope="col">小計</th></tr></thead>'
                   let oneOrderTotalNum = 0;
                   let oneOrder = $("<tbody></tbody>");
                   for(let j = 0; j < dataFromServer["orders"][i]["orderDetails"].length; j++) {
-                    console.log(dataFromServer["orders"][i]["orderDetails"][j]);
                     let productName = $("<td></td>").append(dataFromServer["orders"][i]["orderDetails"][j]["productName"]);
                     let price = $("<td></td>").append(dataFromServer["orders"][i]["orderDetails"][j]["price"]);
                     let qty = $("<td></td>").append(dataFromServer["orders"][i]["orderDetails"][j]["qty"]);
@@ -89,7 +87,6 @@
                   let oneOrderTotalNumItem = $("<td></td>").append(oneOrderTotalNum);
                   let oneOrderTotal = $("<tr></tr>").append('<td>總價</td><td></td><td></td>').append(oneOrderTotalNumItem);
                   oneOrder.append(oneOrderTotal);
-                  // console.log(oneOrderTotalNum);
                   let oneTable = $("<table class='table'></table>").append(oneOrderHead).append(oneOrder);
                   let cardBody = $("<div class='card-body'></div>").append(oneTable);
 

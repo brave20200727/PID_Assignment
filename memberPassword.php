@@ -104,7 +104,6 @@
                         data: data2Server,
                         dataType: 'json'
                     }).then(function(dataFromServer) {
-                        console.log(dataFromServer);
                         if(dataFromServer["errorCode"] == 1) {
                             alert("舊密碼輸入錯誤！");
                         }

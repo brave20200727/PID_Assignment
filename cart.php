@@ -70,13 +70,11 @@
                     deleteCartProduct: 1,
                     productId: parameter.data("productid")
                 }
-                console.log(data2Server);
                 $.ajax({
                     type: "POST",
                     url: "api.php",
                     data: data2Server
                 }).then(function(dataFromServer) {
-                    console.log(dataFromServer);
                     $(location).prop("href", "cart.php");
                 }).catch(function(e) {
                     console.log(e)
@@ -91,16 +89,15 @@
                     productId: parameter.data("productid"),
                     qty: parameter.prop("value")
                 }
-                console.log(data2Server);
                 $.ajax({
                     type: "POST",
                     url: "api.php",
                     data: data2Server,
                     dataType: "json"
                 }).then(function(dataFromServer) {
-                    console.log(dataFromServer);
                     if(dataFromServer["errorCode"] == 666) {
                         alert("數量修改成功");
+                        $(location).prop("href", "cart.php");
                     }
                 }).catch(function(e) {
                     console.log(e)
@@ -113,13 +110,11 @@
                 deleteCartProduct: 1,
                 productId: parameter.prop("value")
             }
-            console.log(data2Server);
             $.ajax({
                 type: "POST",
                 url: "api.php",
                 data: data2Server
             }).then(function(dataFromServer) {
-                console.log(dataFromServer);
                 $(location).prop("href", "cart.php");
             }).catch(function(e) {
                 console.log(e)
@@ -135,10 +130,16 @@
                 data: data2Server,
                 dataType: 'json'
             }).then(function(dataFromServer) {
-                console.log(dataFromServer);
                 if(dataFromServer["errorCode"] == 666) {
                     alert("購買完成，轉跳至首頁！");
                     $(location).prop("href", "index.php");                    
+                }
+                else if(dataFromServer["errorCode"] == 1) {
+                    alert("尚未加入任何商品喔！");
+                }
+                else if(dataFromServer["errorCode"] == 2) {
+                    alert(dataFromServer["productName"] + "的庫存不夠喔！");
+                    $(location).prop("href", "cart.php");
                 }
             }).catch(function(e) {
                 console.log(e);
@@ -154,7 +155,6 @@
                 data: data2Server,
                 dataType: 'json'
             }).then(function(dataFromServer) {
-                console.log(dataFromServer);
                 if(dataFromServer["errorCode"] == 666) {
                     alert("購物車已清空！");
                     $(location).prop("href", "cart.php");                    
@@ -174,7 +174,6 @@
                 data: data2Server,
                 dataType: "json"
             }).then(function(dataFromServer) {
-                console.log(dataFromServer);
                 let productCount = 0;
                 let number = 0;
                 let totalMoney = 0;                

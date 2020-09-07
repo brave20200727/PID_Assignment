@@ -205,6 +205,19 @@
             while($row = mysqli_fetch_assoc($result)) {
                 $allProduct[] = $row;
             }
+            for($i = 0;$i < count($allProduct); $i++) {
+                $productId = $allProduct[$i]["productId"];
+                $qty = $allProduct[$i]["qty"];
+                $sqlCommand = "SELECT * FROM products WHERE productId = $productId";
+                $result = mysqli_query($dbLink, $sqlCommand);
+                $row = mysqli_fetch_assoc($result);
+                if($qty > $row["inStock"]) {
+                    $returnValue["errorCode"] = 2;
+                    $returnValue["productName"] = $row["productName"];
+                    echo json_encode($returnValue);
+                    return;
+                }
+            }            
             $sqlCommand = <<< multi
                 INSERT INTO orders(userId, shippingStatus) VALUES ((SELECT userId FROM users WHERE userName = '$userName'), 1);
                 SELECT orderId FROM orders ORDER BY orderId DESC LIMIT 0,1;
@@ -224,8 +237,14 @@
                 $sqlCommand .= "($orderId, $productId, $qty)";                
             }
             $sqlCommand .= ";DELETE FROM cart WHERE userId = (SELECT userId FROM users WHERE userName = '$userName');";
+            for($i = 0;$i < count($allProduct); $i++) {
+                $productId = $allProduct[$i]["productId"];
+                $qty = $allProduct[$i]["qty"];
+                $sqlCommand .= "UPDATE products SET inStock = inStock - $qty WHERE productId = $productId;";
+            }
             mysqli_multi_query($dbLink, $sqlCommand);
             echo '{"errorCode": 666}';
+            mysqli_close($dbLink);
         }
 
     }
@@ -247,7 +266,9 @@
             while($row = mysqli_fetch_assoc($result)) {
                 $allProducts[] = $row;
             }
-            echo json_encode($allProducts);
+            $returnValue["errorCode"] = 666;
+            $returnValue["allProducts"] = $allProducts;
+            echo json_encode($returnValue);
         } else {
             echo '{"errorCode": 1}';
         }
@@ -330,10 +351,6 @@
         echo '{"errorCode": 666}';
     }
     else if(isset($_POST["addProduct"])) {
-        // https://huang2387.pixnet.net/blog/post/301541795-%E3%80%90%E7%B6%93%E9%A9%97%E3%80%91php-%E6%AA%94%E6%A1%88%E4%B8%8A%E5%82%B3-%E6%AD%A5%E9%A9%9F%E6%95%99%E5%AD%B8
-        // var_dump($_POST);
-        // var_dump($_FILES);
-        // move_uploaded_file($_FILES["productPicture"]["tmp_name"], "img/pic1.jpg");
         $productName = $_POST["productName"];
         $description = $_POST["description"];
         $productType = $_POST["productType"];
