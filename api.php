@@ -228,7 +228,7 @@
                 }
             }            
             $sqlCommand = <<< multi
-                INSERT INTO orders(userId, shippingStatus) VALUES ((SELECT userId FROM users WHERE userName = '$userName'), 1);
+                INSERT INTO orders(userId, shippingStatus, orderTime) VALUES ((SELECT userId FROM users WHERE userName = '$userName'), 1, CURRENT_TIMESTAMP());
                 SELECT orderId FROM orders ORDER BY orderId DESC LIMIT 0,1;
             multi;
             mysqli_multi_query($dbLink, $sqlCommand);
@@ -398,13 +398,15 @@
         $productType = $_POST["productType"];
         $price = $_POST["price"];
         $inStock = $_POST["inStock"];
-        if($_FILES["productPicture"]["type"] == "image/jpeg") {
-            unlink("img/pic$productId.jpg");
-            move_uploaded_file($_FILES["productPicture"]["tmp_name"], "img/pic$productId.jpg");
-        }
-        else if($_FILES["productPicture"]["type"] == "image/png") {
-            unlink("img/pic$productId.png");            
-            move_uploaded_file($_FILES["productPicture"]["tmp_name"], "img/pic$productId.png");
+        if(!empty($_FILES["productPicture"]["name"])) {
+            if($_FILES["productPicture"]["type"] == "image/jpeg") {
+                unlink("img/pic$productId.jpg");
+                move_uploaded_file($_FILES["productPicture"]["tmp_name"], "img/pic$productId.jpg");
+            }
+            else if($_FILES["productPicture"]["type"] == "image/png") {
+                unlink("img/pic$productId.png");            
+                move_uploaded_file($_FILES["productPicture"]["tmp_name"], "img/pic$productId.png");
+            }            
         }
         $sqlCommand = <<< multi
             UPDATE products SET productName = '$productName', description = '$description', productType = $productType, price = $price, inStock = $inStock WHERE productId = $productId
@@ -413,8 +415,13 @@
         echo '{"errorCode": 666}';
     }
     else if(isset($_POST["getOrderDetail"])) {
+        $startTime = $_POST["startTime"];
+        $endTime = $_POST["endTime"];
         $sqlCommand = <<< multi
-            SELECT * FROM orderDetails od JOIN products p ON od.productId = p.productId
+            SELECT * FROM orderDetails od
+            JOIN products p ON od.productId = p.productId
+            JOIN orders o ON od.orderId = o.orderId
+            WHERE orderTime > STR_TO_DATE('$startTime', '%Y-%m-%d') AND orderTime < STR_TO_DATE('$endTime', '%Y-%m-%d')
         multi;
         $result = mysqli_query($dbLink, $sqlCommand);
         $rowNum  = mysqli_num_rows($result);
