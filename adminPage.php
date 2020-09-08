@@ -67,7 +67,7 @@
                     </div>
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title"><a href="#">報表</a></h5>
+                            <h5 class="card-title"><a href="paper.php">報表</a></h5>
                             <p class="card-text" style="color: gray;">觀看各商品銷售狀況</p>
                         </div>
                     </div>
