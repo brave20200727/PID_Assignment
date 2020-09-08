@@ -90,12 +90,10 @@
             $("#okButton").on("click", function() {
                 let startTime = new Date($("#startTime").prop("value"));
                 let endTime = new Date($("#endTime").prop("value"));
-                console.log(startTime);
-                console.log(endTime);
                 if($("#searchItem").prop("value") == "0"){
                     alert("沒有選擇要查詢的項目喔！");
                 }
-                else if(startTime - endTime > 0) {
+                else if(startTime - endTime >= 0) {
                     alert("開始時間必須早於結束時間喔！");
                 }
                 else if($("#searchItem").prop("value") == "1") {
@@ -111,12 +109,10 @@
                         data: data2Server,
                         dataType: "json"
                     }).then(function(dataFromServer) {
-                        console.log(dataFromServer);
                         let productSales = [0, 0, 0, 0, 0, 0, 0];                
                         for(let data of dataFromServer["allOrderDetails"]) {
                             productSales[parseInt(data["productType"])-1] += parseInt(data["qty"]);
                         }
-                        console.log(productSales);
                         $("#chart").remove();
                         $("#paper").append('<canvas id="chart" width="800" height="600"></canvas>');
                         let ctx = $("#chart");
@@ -148,7 +144,6 @@
                         data: data2Server,
                         dataType: "json"
                     }).then(function(dataFromServer) {
-                        console.log(dataFromServer);
                         let month = Array(), money = Array();
                         for(let i = 0; i <= (endTime.getMonth() - startTime.getMonth()); i++) {
                             month.push(startTime.getMonth()+1+i);
@@ -169,7 +164,6 @@
                             }
                             productSales[1][index] += parseInt(data["price"]) * parseInt(data["qty"]);
                         }
-                        console.log(productSales);
                         $("#chart").remove();
                         $("#paper").append('<canvas id="chart" width="800" height="600"></canvas>');                        
                         let ctx = $("#chart");

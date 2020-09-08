@@ -421,7 +421,7 @@
             SELECT * FROM orderDetails od
             JOIN products p ON od.productId = p.productId
             JOIN orders o ON od.orderId = o.orderId
-            WHERE orderTime > STR_TO_DATE('$startTime', '%Y-%m-%d') AND orderTime < STR_TO_DATE('$endTime', '%Y-%m-%d')
+            WHERE orderTime >= STR_TO_DATE('$startTime', '%Y-%m-%d') AND orderTime <= STR_TO_DATE('$endTime', '%Y-%m-%d')
         multi;
         $result = mysqli_query($dbLink, $sqlCommand);
         $rowNum  = mysqli_num_rows($result);
