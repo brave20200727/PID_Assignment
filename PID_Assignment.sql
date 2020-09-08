@@ -66,7 +66,7 @@ CREATE TABLE `orderDetails` (
 
 LOCK TABLES `orderDetails` WRITE;
 /*!40000 ALTER TABLE `orderDetails` DISABLE KEYS */;
-INSERT INTO `orderDetails` VALUES (1,2,1),(2,1,1);
+INSERT INTO `orderDetails` VALUES (1,1,1),(1,2,1),(1,3,1),(1,4,1),(1,5,1),(1,6,1),(1,7,1),(2,1,1);
 /*!40000 ALTER TABLE `orderDetails` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -81,6 +81,7 @@ CREATE TABLE `orders` (
   `orderId` int(11) NOT NULL AUTO_INCREMENT,
   `userId` int(11) DEFAULT NULL,
   `shippingStatus` int(11) DEFAULT NULL,
+  `orderTime` datetime DEFAULT NULL,
   PRIMARY KEY (`orderId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -91,7 +92,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (1,3,1),(2,2,1);
+INSERT INTO `orders` VALUES (1,3,1,'2020-09-08 13:57:21'),(2,3,1,'2020-07-08 15:24:40');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -135,7 +136,7 @@ CREATE TABLE `products` (
   `price` int(11) DEFAULT NULL,
   `inStock` int(11) DEFAULT NULL,
   PRIMARY KEY (`productId`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -144,7 +145,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (1,'基隆美景','這就是基隆的美景',1,'img/pic1.jpg',1000,998),(2,'台北美景','這就是台北的美景',2,'img/pic2.jpg',2000,998),(3,'台中美景','這就是台中的美景',3,'img/pic3.jpg',3000,999),(4,'台南的美景','這就是台南的美景',4,'img/pic4.jpg',4000,999),(5,'南投的美景','這就是南投美景',5,'img/pic5.jpg',5000,999),(6,'台東美景','這就是台東的美景',6,'img/pic6.jpg',6000,999),(7,'宜蘭美景','這就是宜蘭的美景',7,'img/pic7.jpg',7000,999);
+INSERT INTO `products` VALUES (1,'基隆美景','這就是基隆的美景',1,'img/pic1.jpg',1000,998),(2,'台北美景','這就是台北的美景',2,'img/pic2.jpg',2000,998),(3,'台中美景','這就是台中的美景',3,'img/pic3.jpg',3000,998),(4,'台南的美景','這就是台南的美景',4,'img/pic4.jpg',4000,998),(5,'南投的美景','這就是南投美景',5,'img/pic5.jpg',5000,998),(6,'台東美景','這就是台東的美景',6,'img/pic6.jpg',6000,998),(7,'宜蘭美景','這就是宜蘭的美景',7,'img/pic7.jpg',7000,998);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -169,7 +170,7 @@ CREATE TABLE `users` (
   `userType` int(11) DEFAULT NULL,
   `userStatus` int(11) DEFAULT NULL,
   PRIMARY KEY (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -178,7 +179,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin','admin',NULL,NULL,NULL,NULL,NULL,NULL,NULL,2,1),(2,'brave20200727','1234','brave20200727@gmail.com','1997-07-30',1,'陳柏程','0926005788','台南市','安平那兒',1,1),(3,'owen5566','1234','owen5566@gmail.com','1997-03-03',2,'黃煒翔','0923617373','台中市','鼎盛大樓',1,1);
+INSERT INTO `users` VALUES (1,'admin','8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918',NULL,NULL,NULL,NULL,NULL,NULL,NULL,2,1),(2,'brave20200727','03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4','brave20200727@gmail.com','1997-07-30',1,'陳柏程','0926005788','台南市','安平那兒',1,1),(3,'owen5566','03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4','owen5566@gmail.com','1997-03-03',2,'黃煒翔','0923617373','台中市','鼎盛大樓',1,1),(4,'brave5566','0ffe1abd1a08215353c233d6e009613e95eec4253832a761af28ff37ac5a150c','he02611601@gmail.com','1997-07-30',1,NULL,NULL,NULL,NULL,1,1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -191,4 +192,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-07 17:45:42
+-- Dump completed on 2020-09-08 16:59:09
