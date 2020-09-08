@@ -6,7 +6,7 @@
 
     if(isset($_POST["signupButton"])) {
         $userName = $_POST["userName"];
-        $userPassword = $_POST["userPassword"];
+        $userPassword = hash('sha256', $_POST["userPassword"]);
         $email = $_POST["email"];
         $birthday = $_POST["birthday"];
         $gender = $_POST["gender"];
@@ -30,7 +30,8 @@
     else if(isset($_POST["loginButton"])) {
         // var_dump($_POST);
         $userName = $_POST["userName"];
-        $userPassword = $_POST["userPassword"];
+        // $userPassword = $_POST["userPassword"];
+        $userPassword = hash('sha256', $_POST["userPassword"]);
         $sqlCommand = <<< multi
             SELECT * FROM users WHERE userName = '$userName'
         multi;
