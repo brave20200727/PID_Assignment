@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="node_modules/chart.js/dist/Chart.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -51,7 +52,46 @@
               </ul>
             </div>
         </nav>
-           
+        <div>
+            <h3>各類商品銷售量</h3>
+            <canvas id="chart" width="800" height="600"></canvas>
+        </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            let data2Server = {
+                getOrderDetail: 1
+            }
+            $.ajax({
+                type: "POST",
+                url: "api.php",
+                data: data2Server,
+                dataType: "json"
+            }).then(function(dataFromServer) {
+                console.log(dataFromServer);
+                let productSales = [0, 0, 0, 0, 0, 0, 0];                
+                for(let data of dataFromServer["allOrderDetails"]) {
+                    productSales[parseInt(data["productType"])-1] += data["qty"];
+                }
+                let ctx = $("#chart");
+                let chart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ["電子書", "繁體中文書", "簡體中文書", "外文書", "雜誌", "漫畫", "文具用品"],
+                        datasets: [{
+                            label: '商品銷售數量',
+                            data: productSales,
+                            backgroundColor: 'rgba(245, 150, 170, 0.5)'
+                        }]
+                    }
+                });                
+            }).catch(function(e) {
+                console.log(e);
+            });
+
+
+        });
+    </script>
 </body>
 </html>

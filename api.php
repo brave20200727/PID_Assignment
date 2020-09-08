@@ -1,7 +1,7 @@
 <?php
     session_start();
-    // $dbLink = mysqli_connect("localhost", "root", "root", "PID_Assignment", 8889) or die(mysqli_connect_error());
-    $dbLink = mysqli_connect("localhost", "root", "", "PID_Assignment") or die(mysqli_connect_error());
+    $dbLink = mysqli_connect("localhost", "root", "root", "PID_Assignment", 8889) or die(mysqli_connect_error());
+    // $dbLink = mysqli_connect("localhost", "root", "", "PID_Assignment") or die(mysqli_connect_error());
     mysqli_query($dbLink, "set names utf8");
 
     if(isset($_POST["signupButton"])) {
@@ -411,5 +411,24 @@
         multi;
         mysqli_query($dbLink, $sqlCommand);
         echo '{"errorCode": 666}';
+    }
+    else if(isset($_POST["getOrderDetail"])) {
+        $sqlCommand = <<< multi
+            SELECT * FROM orderDetails od JOIN products p ON od.productId = p.productId
+        multi;
+        $result = mysqli_query($dbLink, $sqlCommand);
+        $rowNum  = mysqli_num_rows($result);
+        if($rowNum == 0) {
+            echo '{"errorCode": 1}';
+            return;
+        }
+        else {
+            while($row = mysqli_fetch_assoc($result)) {
+                $allOrderDetails[] = $row;
+            }
+            $returnData["errorCode"] = 666;
+            $returnData["allOrderDetails"] = $allOrderDetails;
+            echo json_encode($returnData);
+        }
     }
 ?>
