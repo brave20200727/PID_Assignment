@@ -141,6 +141,9 @@
                     alert(dataFromServer["productName"] + "的庫存不夠喔！");
                     $(location).prop("href", "cart.php");
                 }
+                else if(dataFromServer["errorCode"] == 3) {
+                    alert("還沒有住址喔，先去會員中心修改地址資料！");
+                }
             }).catch(function(e) {
                 console.log(e);
             })
